@@ -1,4 +1,8 @@
 const { BrowserWindow } = require('electron');
+const { getConnection } = require('./database');
+
+
+
 
 function createWindow() {
     window = new BrowserWindow({
@@ -12,6 +16,7 @@ function createWindow() {
      window.loadFile("src/ui/index.html");
    }
 
+   const conn = getConnection();
 
    module.exports = {
     createWindow 

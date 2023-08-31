@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electron & MySQL</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+}
+ 
+#products {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2px
+}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+ 
+</head>
+<body>
+    <main class="container-flude">
+        <div class="row">
+            <div class="col-md-8 p-4 my-auto">
+                <form id="salesForm" class="card card-body">
+                    <div class="form-group">
+                      <label>Customer Name:</label></br>
+                      <input type="text" id="name" placeholder="Customer's Name" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                    <label>Address:</label>
+                      <input type="number" id="phone" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                    <label>Country:</label>
+                      <input type="number" id="phone" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                    <label>State:</label>
+                      <input type="number" id="phone" class="form-control" autofocus>
+                    </div>
+                    <div class="form-group">
+                    <label>City:</label>
+                      <input type="number" id="phone" class="form-control" autofocus>
+                    </div>
+                   <div class="form-group">
+                    <label>Contact No:</label>
+                      <input type="number" id="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>Invoice No:</label>
+                      <input type="number" id="invoiceno" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>Sales Date:</label>
+                      <input type="date" id="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>order_no:</label>
+                      <input type="text" id="orderno" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>Products:</label>
+                    <select id="provarients" class="form-control">
+                        <option value="">N/A</option>
+                        <option value="aaaa">aaaa</option>
+                        <option value="bbb">bbb</option>
+                        <option value="ccc">ccc</option>
+                    </select>
+                    </div>
+                    
+                    <div class="form-group">
+                    <label>Product Varients:</label>
+                    <select id="provarients" class="form-control">
+                        <option value="">N/A</option>
+                        <option value="black">black</option>
+                        <option value="orange">orange</option>
+                        <option value="yello">yello</option>
+                    </select>
+                    </div>
+                    <div class="form-group">
+                    <label>quantity:</label>
+                      <input type="number" id="qnt" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>Price:</label>
+                      <input type="number" id="qnt" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>Description:</label>
+                      <textarea type="text" id="desc" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label>Gross Amount:</label>
+                      <input type="number" id="qnt" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>GST %:</label>
+                      <input type="number" id="qnt" class="form-control">
+                    </div>
+                     <div class="form-group">
+                    <label>Total Amount:</label>
+                      <input type="number" id="qnt" class="form-control">
+                    </div>
+                    <div class="form-group">
+                    <label>Description:</label>
+                      <textarea type="date" id="date" class="form-control"></textarea>
+                    </div></br>
+                    <button type="submit" class="btn btn-primary">
+                      Save
+                    </button>
+                </form>
+            </div>
+            <!-- Product List -->
+            <div class="col-md-6">
+                <div id="products">
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+ <script type="module" src="./add.js"></script> 
+</html>
