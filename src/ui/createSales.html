@@ -17,52 +17,60 @@
 }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
- 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
-<body>
+<body onload="idfind()">
     <main class="container-flude">
         <div class="row">
             <div class="col-md-8 p-4 my-auto">
                 <form id="salesForm" class="card card-body">
+                  <div class="form-group">
+                    <label>Invoice No:</label>
+                      <input type="number" id="invoiceno" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                    <label>Sales Date:</label>
+                      <input type="date" id="salesdate" class="form-control">
+                    </div>
                     <div class="form-group">
                       <label>Customer Name:</label></br>
-                      <input type="text" id="name" placeholder="Customer's Name" class="form-control" autofocus>
+                      <input type="text" id="name" class="form-control" autofocus>
                     </div>
                     <div class="form-group">
                     <label>Address:</label>
-                      <input type="number" id="phone" class="form-control" autofocus>
+                      <input type="text" id="address"  class="form-control" autofocus>
                     </div>
                     <div class="form-group">
                     <label>Country:</label>
-                      <input type="number" id="phone" class="form-control" autofocus>
+                    <select id="country" onchange="random_function()" class="form-control" autofocus>
+                      <option value="">select option</option>
+                      <option value="INDIA">INDIA</option>
+                     </select>
                     </div>
                     <div class="form-group">
-                    <label>State:</label>
-                      <input type="number" id="phone" class="form-control" autofocus>
-                    </div>
-                    <div class="form-group">
-                    <label>City:</label>
-                      <input type="number" id="phone" class="form-control" autofocus>
+                      <label>state:</label>
+                     <select id="state" onchange="" class="form-control" autofocus></select>
+                   </div>
+                   <div class="form-group">
+                   <label>city:</label>
+                    <select id="city" onchange="" class="form-control" autofocus>
+                      <option value="">select option</option>
+                      <option value="vadodara">vadodara</option>
+                      <option value="mehsana">mehsana</option>
+                     </select>
                     </div>
                    <div class="form-group">
                     <label>Contact No:</label>
                       <input type="number" id="phone" class="form-control">
                     </div>
-                    <div class="form-group">
-                    <label>Invoice No:</label>
-                      <input type="number" id="invoiceno" class="form-control">
-                    </div>
-                    <div class="form-group">
-                    <label>Sales Date:</label>
-                      <input type="date" id="date" class="form-control">
-                    </div>
+                    
                     <div class="form-group">
                     <label>order_no:</label>
                       <input type="text" id="orderno" class="form-control">
                     </div>
                     <div class="form-group">
                     <label>Products:</label>
-                    <select id="provarients" class="form-control">
+                    <select id="prod" class="form-control">
                         <option value="">N/A</option>
                         <option value="aaaa">aaaa</option>
                         <option value="bbb">bbb</option>
@@ -85,40 +93,63 @@
                     </div>
                     <div class="form-group">
                     <label>Price:</label>
-                      <input type="number" id="qnt" class="form-control">
+                      <input type="number" id="price" class="form-control">
                     </div>
                     <div class="form-group">
                     <label>Description:</label>
-                      <textarea type="text" id="desc" class="form-control"></textarea>
+                      <textarea type="text" id="prodesc" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                     <label>Gross Amount:</label>
-                      <input type="number" id="qnt" class="form-control">
+                      <input type="number" id="grossamount" class="form-control">
                     </div>
                     <div class="form-group">
                     <label>GST %:</label>
-                      <input type="number" id="qnt" class="form-control">
+                      <input type="number" id="gst" class="form-control">
                     </div>
                      <div class="form-group">
                     <label>Total Amount:</label>
-                      <input type="number" id="qnt" class="form-control">
-                    </div>
-                    <div class="form-group">
-                    <label>Description:</label>
-                      <textarea type="date" id="date" class="form-control"></textarea>
+                      <input type="number" id="totalamount" class="form-control">
                     </div></br>
+                    <div align ="center">
                     <button type="submit" class="btn btn-primary">
                       Save
                     </button>
+                </div>
                 </form>
             </div>
             <!-- Product List -->
-            <div class="col-md-6">
+             <div class="col-md-6">
                 <div id="products">
                 </div>
             </div>
         </div>
     </main>
 </body>
- <script type="module" src="./add.js"></script> 
+ <script type="module" src="./addSales.js"></script>
+ <script>
+  function random_function()
+  {
+      var a=document.getElementById("country").value;
+      if(a==="INDIA")
+      {
+          var arr=["Gujarat","Maharashtra","Delhi","bangal"];
+      }
+     var string="";
+   
+      for(i=0;i<arr.length;i++)
+      {
+          string=string+"<option value="+arr[i]+">"+arr[i]+"</option>";
+      }
+      document.getElementById("state").innerHTML=string;
+  }
+</script>
+<script>
+  const main = require('../main');
+  function idfind(){
+ var id = main.getInvoiceId()
+ console.log('11111111',id[0]);
+ document.getElementById("invoiceno").value = 1;
+  }
+</script>
 </html>
