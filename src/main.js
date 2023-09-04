@@ -29,14 +29,15 @@ const { getConnection } = require('./database');
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT invoice_no FROM sales ORDER BY id DESC LIMIT 1");
-    console.log('2222222222',results);
     data = await results.then((result) => {
       products.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {
       console.log("err",err);
     });
     return products;
-  };
+  }
+  
+  
 
   const getProducts = async () => {
 

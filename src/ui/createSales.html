@@ -147,9 +147,14 @@
 <script>
   const main = require('../main');
   function idfind(){
- var id = main.getInvoiceId()
- console.log('11111111',id[0]);
- document.getElementById("invoiceno").value = 1;
-  }
+        const ids = main.getInvoiceId().then(function(result){
+         if(result[0][0] == undefined){
+          document.getElementById("invoiceno").value = 1 ;
+          }
+          const id = result[0][0]['invoice_no'];
+          document.getElementById("invoiceno").value = id + 1 ;
+          return id;
+        })
+      }
 </script>
 </html>
