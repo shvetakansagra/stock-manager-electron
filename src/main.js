@@ -2,11 +2,7 @@ const { BrowserWindow } = require('electron');
 const { getConnection } = require('./database');
 
 
-
-
-
-
-   const createSales = async (product) => {
+const createSales = async (product) => {
     try {
       const conn = await getConnection();
       const result = await conn.query("INSERT INTO sales SET ?", product);
@@ -26,20 +22,18 @@ const { getConnection } = require('./database');
   };
   const getInvoiceId = async () => {
 
-    const products = [];
+    const ids = [];
     const conn = await getConnection();
     const results = conn.query("SELECT invoice_no FROM sales ORDER BY id DESC LIMIT 1");
     data = await results.then((result) => {
-      products.push(...JSON.parse(JSON.stringify(result)))
+      ids.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {
       console.log("err",err);
     });
-    return products;
+    return ids;
   }
   
-  
-
-  const getProducts = async () => {
+ const getProducts = async () => {
 
     const products = [];
     const conn = await getConnection();
@@ -49,10 +43,32 @@ const { getConnection } = require('./database');
     }).catch((err) => {
       console.log("err",err);
     });
-    // console.log('data',results._rejectionHandler0);
-    // console.log('data',products);
     return products;
   };
+  const getAllProducts = async () => {
+
+    const products = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT name FROM products ORDER BY id DESC");
+    data = await results.then((result) => {
+      products.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return products;
+  };
+  const getAllProductVarients = async () => {
+
+    const products = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT name FROM varient_products ORDER BY id DESC");
+    data = await results.then((result) => {
+      products.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return products;
+  }
 
   async function init() {
     getProducts();
@@ -73,11 +89,11 @@ const { getConnection } = require('./database');
    }
 
 
-  //  const conn = getConnection();
-
    module.exports = {
     createWindow,
     createSales,
     getProducts,
-    getInvoiceId
+    getInvoiceId,
+    getAllProducts,
+    getAllProductVarients
   };   

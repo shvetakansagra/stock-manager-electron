@@ -3,6 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Electron & MySQL</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <style>
     body {
@@ -18,6 +19,7 @@
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body onload="idfind()">
     <main class="container-flude">
@@ -30,7 +32,7 @@
                     </div>
                     <div class="form-group">
                     <label>Sales Date:</label>
-                      <input type="date" id="salesdate" class="form-control">
+                    <input type="date" id="salesdate" class="form-control"/>
                     </div>
                     <div class="form-group">
                       <label>Customer Name:</label></br>
@@ -49,7 +51,8 @@
                     </div>
                     <div class="form-group">
                       <label>state:</label>
-                     <select id="state" onchange="" class="form-control" autofocus></select>
+                     <select id="state" onchange="" class="form-control" autofocus>
+                     <option value="">select option</option></select>
                    </div>
                    <div class="form-group">
                    <label>city:</label>
@@ -70,30 +73,23 @@
                     </div>
                     <div class="form-group">
                     <label>Products:</label>
-                    <select id="prod" class="form-control">
-                        <option value="">N/A</option>
-                        <option value="aaaa">aaaa</option>
-                        <option value="bbb">bbb</option>
-                        <option value="ccc">ccc</option>
-                    </select>
+                    <select class="form-control" name="category" id="prod">
+                      <option value="">N/A</option>
+                  </select> 
                     </div>
-                    
                     <div class="form-group">
                     <label>Product Varients:</label>
                     <select id="provarients" class="form-control">
                         <option value="">N/A</option>
-                        <option value="black">black</option>
-                        <option value="orange">orange</option>
-                        <option value="yello">yello</option>
                     </select>
                     </div>
                     <div class="form-group">
                     <label>quantity:</label>
-                      <input type="number" id="qnt" class="form-control">
+                      <input type="number" id="qnt" class="form-control" onblur="getVal()">
                     </div>
                     <div class="form-group">
                     <label>Price:</label>
-                      <input type="number" id="price" class="form-control">
+                      <input type="number" id="price" class="form-control" onblur="getVal()">
                     </div>
                     <div class="form-group">
                     <label>Description:</label>
@@ -105,7 +101,7 @@
                     </div>
                     <div class="form-group">
                     <label>GST %:</label>
-                      <input type="number" id="gst" class="form-control">
+                      <input type="number" id="gst" class="form-control" onblur="getVal()">
                     </div>
                      <div class="form-group">
                     <label>Total Amount:</label>
@@ -133,7 +129,7 @@
       var a=document.getElementById("country").value;
       if(a==="INDIA")
       {
-          var arr=["Gujarat","Maharashtra","Delhi","bangal"];
+          var arr=["Gujarat"];
       }
      var string="";
    
@@ -146,6 +142,7 @@
 </script>
 <script>
   const main = require('../main');
+  const moment= require('moment');
   function idfind(){
         const ids = main.getInvoiceId().then(function(result){
          if(result[0][0] == undefined){
@@ -153,8 +150,50 @@
           }
           const id = result[0][0]['invoice_no'];
           document.getElementById("invoiceno").value = id + 1 ;
-          return id;
+
         })
+        // for products listing
+        const products = main.getAllProducts().then(function(result){
+        const productName = result;
+        for (let i = 0; i < productName.length; i++) {
+                let optn = productName[0][i]['name'];
+                let el = document.createElement("option");
+                el.textContent = optn;
+                el.value = optn;
+              document.getElementById('prod').appendChild(el);
+            }
+        })
+        const salesProducts = main.getAllProductVarients().then(function(result){
+        const salesProduct = result;
+        for (let i = 0; i < salesProduct.length; i++) {
+                let optn = salesProduct[0][i]['name'];
+                let el = document.createElement("option");
+                el.textContent = optn;
+                el.value = optn;
+              document.getElementById('provarients').appendChild(el);
+            }
+        })
+        
       }
+</script>
+<script>
+  function getVal() {
+  const val1 = document.getElementById('qnt').value;
+  const val2 = document.getElementById('price').value;
+  document.getElementById('grossamount').value = (val1*val2);
+  const grossamount =document.getElementById('grossamount').value
+
+  const gst = document.getElementById('gst').value;
+  const gstAmount =((grossamount*gst)/100);
+  // const totalamount = grossamount + gstAmount;
+  num1 = parseInt(document.getElementById("grossamount").value);
+  num2 = parseInt(gstAmount);
+   document.getElementById('totalamount').value = num1+num2;
+
+}
+</script>
+<script>
+  //for sales date bydefualt selected
+  document.getElementById('salesdate').valueAsDate = new Date();
 </script>
 </html>

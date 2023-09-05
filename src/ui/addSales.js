@@ -46,7 +46,6 @@ salesForm.addEventListener('submit', async(e) =>{
             total_amount:totalamount.value,
             
         }
-        console.log('33333',product)
           const savedProduct = await main.createSales(product);
           console.log(savedProduct);
           

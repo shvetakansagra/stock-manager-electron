@@ -49,7 +49,6 @@ function renderProducts(tasks) {
 
 const getProducts = async()=>{
     products = await main.getProducts();
-    console.log('3333333',products);
     await renderProducts(products)
     
      
