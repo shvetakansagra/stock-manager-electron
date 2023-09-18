@@ -11,6 +11,7 @@ function renderProducts(tasks) {
   <thead>
   <tr>
   <th style="width:55px;">Index</th>
+        <th style="width:30px;">Invoice No</th>
         <th style="width:55px;">Customer Name</th>
         <th style="width:100px;">Sales Date</th>
         <th style="width:55px;">Products</th>
@@ -21,6 +22,7 @@ function renderProducts(tasks) {
         <th style="width:55px;">Amount</th>
         <th style="width:55px;">Gst</th>
         <th style="width:55px;">Total Amount</th>
+        <th style="width:100px;">Action</th>
     </tr>
   </thead>
   </table>`
@@ -30,8 +32,9 @@ function renderProducts(tasks) {
       <tbody>
          <tr>
           <td style="width:50px;">${t.id}</td>
+          <td style="width:30px;">${t.invoice_no}</td>
           <td style="width:55px;">${t.customer_name}</td>
-          <td style="width:55px;word-break: break-word;">${t.sales_date}</td>
+          <td style="width:55px">${t.sales_date}</td>
           <td style="width:55px;">${t.product}</td>
           <td style="width:55px;">${t.product_varient_id}</td>
           <td style="width:55px;">${t.quantity}</td>
@@ -40,6 +43,8 @@ function renderProducts(tasks) {
           <td style="width:55px;">${t.amount}</td>
           <td style="width:55px;">${t.gst}</td>
           <td style="width:55px;">${t.total_amount}</td></br>
+          <td style="width:100px;"><a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">View</a>
+          <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Edit</a></td></br>
       </tr>
       </tbody>
     </table>

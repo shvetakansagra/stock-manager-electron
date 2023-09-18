@@ -69,6 +69,17 @@ const createSales = async (product) => {
     });
     return products;
   }
+  const getSalesPrice = async (productName) => {
+    const productsPrice = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT sales_price from products WHERE name =" + conn.escape(productName));
+    data = await results.then((result) => {
+      productsPrice.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return productsPrice;
+  }
 
   async function init() {
     getProducts();
@@ -95,5 +106,6 @@ const createSales = async (product) => {
     getProducts,
     getInvoiceId,
     getAllProducts,
-    getAllProductVarients
+    getAllProductVarients,
+    getSalesPrice
   };   

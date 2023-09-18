@@ -181,6 +181,11 @@
 </script>
 <script>
   function getVal() {
+  const productName = document.getElementById('prod').value;
+  const productsPrice = main.getSalesPrice(productName).then(function(result){
+          const salesPrice = result[0][0]['sales_price'];
+          document.getElementById("price").value = salesPrice ;
+   })
   const val1 = document.getElementById('qnt').value;
   const val2 = document.getElementById('price').value;
   document.getElementById('grossamount').value = (val1*val2);
