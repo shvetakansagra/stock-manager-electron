@@ -20,7 +20,19 @@ const gst = document.querySelector("#gst");
 const totalamount = document.querySelector("#totalamount");
 const productsList = document.querySelector("#products");
 
-
+const ids = localStorage.getItem("ids");
+const customer_name = localStorage.getItem("customer_name");
+const invoice_no = localStorage.getItem("invoice_no");
+const order_no = localStorage.getItem("order_no");
+const product = localStorage.getItem("product");
+const description = localStorage.getItem("description");
+const quantity   = localStorage.getItem("quantity");
+const price1 = localStorage.getItem("price");
+const phone1 = localStorage.getItem("phone");
+const address1 = localStorage.getItem("address1");
+const gst1 = localStorage.getItem("gst");
+const amount = localStorage.getItem("amount");
+const total_amount = localStorage.getItem("total_amount");
 
 
 salesForm.addEventListener('submit', async(e) =>{

@@ -43,8 +43,8 @@ function renderProducts(tasks) {
           <td style="width:55px;">${t.amount}</td>
           <td style="width:55px;">${t.gst}</td>
           <td style="width:55px;">${t.total_amount}</td></br>
-          <td style="width:100px;"><a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">View</a>
-          <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Edit</a></td></br>
+          <td style="width:100px;">
+          <a class="btn btn-primary" onclick="editSalesInvoice('${t.id}')">Edit</a></td></br>
       </tr>
       </tbody>
     </table>
@@ -55,8 +55,6 @@ function renderProducts(tasks) {
 const getProducts = async()=>{
     products = await main.getProducts();
     await renderProducts(products)
-    
-     
 }
 
 async function init(){
