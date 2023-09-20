@@ -103,7 +103,7 @@
                     </div>
                     <div class="form-group col-md-2 mt-2">
                     <label>Product Varients:</label>
-                    <select id="ddl-product-varient-1" class="form-control">
+                    <select id="provarients1" class="form-control">
                         <option value="">N/A</option>
                     </select>
                     </div>
@@ -162,7 +162,6 @@ var principalCreate = 1;
 $("#adprincipal").on('click', function (e) {
     e.stopImmediatePropagation();
     ++principalCreate;
-    alert(principalCreate);
     $("#principal_append").append(`<div class="principal` + principalCreate + `">
             <div class="row mt-3">
                 <div class="col-md-11">
@@ -181,7 +180,7 @@ $("#adprincipal").on('click', function (e) {
                 </div>
                 <div class="form-group col-md-2 mt-2">
                 <label>Product Varients:</label>
-                <select id="ddl-product-varient-` + principalCreate + `" class="form-control">
+                <select id="provarients` + principalCreate + `" class="form-control">
                     <option value="">N/A</option>
                 </select>
                 </div>
@@ -210,24 +209,58 @@ $("#adprincipal").on('click', function (e) {
                             
      </div>`);
      $('#custId').val(principalCreate);
+     alert('3453')
      const products = main.getAllProducts().then(function(result){
         const productName = result;
-        // let product_options = "";
-        for (let i = 0; i <= productName.length; i++) {
-                let optn = productName[0][i]['name'];
-                let el = document.createElement("option");
-                el.textContent = optn;
-                el.value = optn;
-                // product_options += `<option value="${el.textContent}">
-                //                    ${el.value}
-                //               </option>`;
-                $("#prod" +principalCreate).append(`<option value="${el.textContent}">
-                                       ${el.value}
-                                  </option>`);
-            }
-            // console.log('object',ddl-product-" +principalCreate");
-
+        let product_options = "";
+        $('#prod').empty().append(new Option('Select all', 'all'));
+        for (let i = 0; i < productName[0].length; i++) {
+                let id = productName[0][i]['name'];
+                let name = productName[0][i]['name'];
+                product_options += `<option value="${id}">${name}</option>`;
+              }
+              $("#prod" +principalCreate).append(product_options);
+   
+        // product_options = readValueFromObject(productName[0].length);
+        // console.log('8888888888888',product_options);
+        // $("#prod" +principalCreate).append(product_options);
         })
+    $("#prod" +principalCreate).change(function(){
+      let productName = $(this).val();
+      const salesProducts = main.getDropDownProductVarientsData(productName).then(function(result){
+      const salesProduct = result;
+      const productId = salesProduct[0][0]['id'];
+      const salesProducts = main.getAllProductVarients(productId).then(function(result){
+          const salesProduct = result;
+          let product_varients_options = "";
+          for (let i = 0; i < salesProduct[0].length; i++) {
+                let id = salesProduct[0][i]['id'];
+                let name = salesProduct[0][i]['name'];
+                product_varients_options += `<option value="${id}">${name}</option>`;
+                }
+                $("#provarients" +principalCreate).append(product_varients_options);
+           })
+          // $('#provarients'+principalCreate+' option').remove();
+          // product_varients_options = readValueFromObject(salesProduct[0].length);
+          // $("#provarients" +principalCreate).append(product_varients_options);
+      
+
+    })
+
+      
+  });
+
+  // function readValueFromObject(items)
+  // {
+  //       for (let i = 0; i < items; i++)
+  //        {
+  //           let id = items[0][i]['id'];
+  //           let name = items[0][i]['name'];
+  //           product_varients_options += `<option value="${id}">${name}</option>`;
+  //       }
+  //       return product_varients_options;
+  // }
+
     $('#val').val(principalCreate);
     $(".remove").on('click', function () {
         let principalCreates = $(this).val();
@@ -284,6 +317,7 @@ $("#adprincipal").on('click', function (e) {
                               </option>`);
             }
         })
+
         // const salesProducts = main.getAllProductVarients().then(function(result){
         // const salesProduct = result;
         // console.log('salesProduct',salesProduct);
@@ -300,6 +334,28 @@ $("#adprincipal").on('click', function (e) {
         // })
         
       }
+</script>
+<script type="text/javascript">
+  $("#prod1").change(function(){
+    let productName = $(this).val();
+    const salesProducts = main.getDropDownProductVarientsData(productName).then(function(result){
+    const salesProduct = result;
+    const productId =salesProduct[0][0]['id'];
+
+    const salesProducts = main.getAllProductVarients(productId).then(function(result){
+        const salesProduct = result;
+        $("#provarients1").empty().append(new Option('Select all', 'all'));
+        for (let i = 0; i < salesProduct[0].length; i++) {
+                let id = salesProduct[0][i]['id'];
+                let name = salesProduct[0][i]['name'];
+              $("#provarients1").append(`<option value="${id}">${name}</option>`);
+            }
+        })
+
+    })
+
+      
+  });
 </script>
 <script>
   function getVal() {

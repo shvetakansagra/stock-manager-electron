@@ -57,11 +57,23 @@ const createSales = async (product) => {
     });
     return products;
   };
-  const getAllProductVarients = async () => {
+  const getDropDownProductVarientsData = async (productName) => {
 
     const products = [];
     const conn = await getConnection();
-    const results = conn.query("SELECT name FROM varient_products ORDER BY id DESC");
+    const results = conn.query("SELECT id FROM products WHERE name =" + conn.escape(productName));
+    data = await results.then((result) => {
+      products.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return products;
+  }
+  const getAllProductVarients = async (productId) => {
+
+    const products = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT id, name FROM varient_products WHERE product_id =" + conn.escape(productId));
     data = await results.then((result) => {
       products.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {
@@ -162,5 +174,6 @@ const createSales = async (product) => {
     getAllProducts,
     getAllProductVarients,
     getSalesPrice,
-    editSalesInvoiceDatas
+    editSalesInvoiceDatas,
+    getDropDownProductVarientsData
   };   
