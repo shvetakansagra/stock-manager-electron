@@ -23,134 +23,160 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body onload="idfind()">
-    <main class="container-flude">
-      <div class="p-4">
+  <main class="container-flude">
+     
+    <div class="sales-invoice11 p-5">
+      <div class="text-end mb-3">
+          <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
+        </div>
         <form id="salesForm" class="card card-body">
-          <div align ="right">
-            <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
-          </div>
-          <div class="row">
-                   <div class="row">   
-                    <div class="form-group col-md-6 mt-2">
-                    <label>Invoice No:</label>
-                      <input type="number" id="invoiceno" class="form-control">
+          <h2 class="text-center py-3">Sales Invoice</h2>
+            <div class="row">
+              <div class="form-group col-md-4 mt-2">
+                <label style="width: 136px;">Invoice No</label>
+                  <input type="number" id="invoice_no" class="form-control">
+                </div>
+                <div class="form-group col-md-4 mt-2">
+                  <label style="width: 136px;">Sales Date</label>
+                  <input type="date" id="sales_date" class="form-control">
+                  </div>
+                  <div class="form-group col-md-4 mt-2">
+                    <label style="width: 136px;">order_no</label>
+                      <input type="text" id="order_no" class="form-control">
                     </div>
-                    </div>
-                    <div class="row">   
-                    <div class="form-group col-md-6 mt-2">
-                    <label>Sales Date:</label>
-                    <input type="date" id="salesdate" class="form-control"/>
-                    </div>
-                    </div>
-                    <div class="form-group">
-                      <label>Customer Name:</label></br>
-                      <input type="text" id="customer_name" class="form-control" autofocus>
-                    </div>
-                    <div class="form-group">
-                    <label>Address:</label>
-                      <textarea id="address"  class="form-control" autofocus></textarea>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-md-4 mt-2">
-                      <label>Contact No:</label>
-                        <input type="number" id="contact_no" class="form-control">
-                      </div>
-                      </div>
-                      <div class="row">
-                      <div class="form-group col-md-4 mt-2">
-                      <label>order_no:</label>
-                        <input type="text" id="order_no" class="form-control">
-                      </div>
-                    </div>
-                    <div class="row">
-                    <div class="form-group col-md-4 mt-2">
-                    <label>Country:</label>
+                  <div class="col-md-4">
+                      <div class="form-group mt-2">
+                          <label style="width: 200px;">Customer Name</label></br>
+                          <input type="text" id="customer_name" class="form-control">
+                        </div>
+                  </div> 
+                  <div class="form-group col-md-8 mt-2">
+                    <label style="width: 200px;">Address</label>
+                      <textarea id="address"  class="form-control" style="height: 38px;"></textarea>
+                    </div> 
+                  <div class="form-group col-md-4 mt-2">
+                    <label style="width: 200px;">Country</label>
                     <select id="country" onchange="random_function()" class="form-control" autofocus>
                       <option value="">select option</option>
                       <option value="INDIA">INDIA</option>
                      </select>
                     </div>
                     <div class="form-group col-md-4 mt-2">
-                      <label>state:</label>
+                      <label style="width: 200px;">state</label>
                      <select id="state" onchange="" class="form-control" autofocus>
                      <option value="">select option</option></select>
                    </div>
                    <div class="form-group col-md-4 mt-2">
-                   <label>city:</label>
-                    <select id="city" onchange="" class="form-control" autofocus>
-                      <option value="">select option</option>
-                      <option value="vadodara">vadodara</option>
-                      <option value="mehsana">mehsana</option>
-                     </select><br>
-                    </div>
-                  </div>
-                  <hr>
+                    <label style="width: 200px;">city</label>
+                     <select id="city" onchange="" class="form-control" autofocus>
+                       <option value="">select option</option>
+                       <option value="vadodara">vadodara</option>
+                       <option value="mehsana">mehsana</option>
+                      </select>
+                     </div>
+                     <div class="form-group col-md-4 mt-2">
+                      <label style="width: 200px;">Contact No</label>
+                        <input type="number" id="contact_no" class="form-control">
+                      </div>
+                      <div class="form-group col-md-4 mt-2">
+                          <label style="width: 136px;">GST No</label>
+                          <input type="text" id="gst_no" class="form-control">
+                       </div>
+                </div>
+                
+                <hr class="mt-4 pb-3">
 <!-- add new product -->
-                   <div class="row documents-section-custom">
-                    <div class="col-md-11">
-                        <h3 class="mb-3">Products</h3>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="button" id="adprincipal" class="btn btn-primary"><i class="fa fa-plus"  aria-hidden="true"></i></button>
-                    </div>
+                 <div class="row documents-section-custom">
+                  <div class="col-md-11">
+                      <h3 class="mb-3">Products</h3>
                   </div>
-                   <div class="row">
-                    <div class="form-group col-md-2 mt-2">
-                    <label>Products:</label>
-                    <select class="form-control prod_drop" id="prod1">
+                  <div class="col-md-1 text-end">
+                      <button type="button" id="adprincipal" class="btn btn-primary"><i class="fa fa-plus"  aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                 <div class="row">
+                  <div class="form-group col-md-2 mt-2" style="width: 14%;">
+                  <label>Products</label>
+                  <select class="form-control prod_drop" id="prod1">
+                    <option value="">N/A</option>
+                  </select> 
+                  </div>
+                  <div class="form-group col-md-2 mt-2" style="width: 14%;">
+                  <label>Product Varients</label>
+                  <select id="provarients1" class="form-control">
                       <option value="">N/A</option>
-                    </select> 
-                    </div>
-                    <div class="form-group col-md-2 mt-2">
-                    <label>Product Varients:</label>
-                    <select id="provarients1" class="form-control">
-                        <option value="">N/A</option>
-                    </select>
-                    </div>
-                    <div class="form-group col-md-1 mt-2">
-                    <label>quantity:</label>
-                      <input type="number" id="qnt-1" class="form-control" onblur="getVal()">
-                    </div>
-                    <div class="form-group col-md-1 mt-2">
-                    <label>Price:</label>
-                      <input type="number" id="price-1" class="form-control" onblur="getVal()">
-                    </div>
-                    
-                    <div class="form-group col-md-2 mt-2">
-                      <label>Gross Amount:</label>
-                      <input type="number" id="grossamount1" class="form-control">
-                    </div>
-                    <div class="form-group col-md-2 mt-2">
-                      <label>GST %:</label>
-                      <input type="number" id="gst-1" class="form-control" onblur="getVal()">
-                    </div>
-                    <div class="form-group col-md-2 mt-2">
-                      <label>Total Amount:</label>
-                      <input type="number" id="totalamount-1" class="form-control">
-                    </div></br>
+                  </select>
                   </div>
-                  <div id="principal_append">
-                    
+                  <div class="form-group col-md-1 mt-2" style="width: 9%;">
+                  <label>quantity</label>
+                    <input type="number" id="qnt1" class="form-control" onblur="getVal()">
                   </div>
-                  <div class="form-group col-md-2 mt-2">
-                    <label>Description:</label>
-                      <textarea type="text" id="product_description" class="form-control"></textarea>
+                  <div class="form-group col-md-1 mt-2" style="width: 9%;">
+                    <label>unit</label>
+                      <input type="number" id="unit1" class="form-control" onblur="getVal()">
                     </div>
-                    <div align ="center">
-                    <button type="submit" class="btn btn-primary">
-                      Save
-                    </button>
+                  <div class="form-group col-md-1 mt-2" style="width: 13%;">
+                  <label>Price</label>
+                    <input type="number" id="price1" class="form-control" onblur="getVal()">
+                  </div>
+                  
+                  <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                    <label>Gross Amount</label>
+                    <input type="number" id="grossamount1" class="form-control">
+                  </div>
+                  <div class="form-group col-md-1 mt-2" style="width: 8%;">
+                    <label>GST %</label>
+                    <input type="number" id="gst1" class="form-control" onblur="getVal()">
+                  </div>
+                  <div class="form-group col-md-2 mt-2" style="width: 14%;">
+                    <label>Total Amount</label>
+                    <input type="number" id="totalamount1" class="form-control">
+                  </div></br>
                 </div>
-                </form>
-            </div>
-            <input type="hidden" id="custId" value="1">
-            <!-- Product List -->
-             <div class="col-md-6">
-                <div id="products">
+                <div id="principal_append">
+                  
                 </div>
-            </div>
-        </div>
-    </main>
+                <div class="row justify-content-between">
+                  <div class="form-group col-md-4 mt-4">
+                      <label>Description</label>
+                        <textarea type="text" id="product_description" class="form-control" style="height: 95px;"></textarea>
+                      </div>
+                      
+                      <div class="col-md-3 mt-5">
+                          <div class="col-md-12 d-flex">
+                              <label style="width: 145px;">Total Gross</label>
+                                <input type="text" id="order_no" class="form-control">
+                          </div>  
+                          <div class="col-md-12 mt-2 d-flex">
+                              <label style="width: 145px;">GST</label>
+                                <input type="text" id="order_no" class="form-control">
+                          </div>  
+                          <div class="col-md-12 mt-2 d-flex">
+                              <label style="width: 145px;">Other Tex</label>
+                                <input type="text" id="order_no" class="form-control">
+                          </div>  
+                          <div class="col-md-12 mt-2 d-flex">
+                              <label style="width: 145px;">Total Amount</label>
+                                <input type="text" id="order_no" class="form-control">
+                          </div>  
+                      </div>
+                </div>
+                
+                  <div class="text-center pt-4 pb-2">
+                  <button type="submit" class="btn btn-primary sub-btn114">
+                    Save
+                  </button>
+              </div>
+              </form>
+          </div>
+          <input type="hidden" id="custId" value="1">
+          <!-- Product List -->
+           <div class="col-md-6">
+              <div id="products">
+              </div>
+          </div>
+      </div>
+  </main>
 </body>
  <script type="module" src="./addSales.js"></script>
  <script>
@@ -163,47 +189,39 @@ $("#adprincipal").on('click', function (e) {
     e.stopImmediatePropagation();
     ++principalCreate;
     $("#principal_append").append(`<div class="principal` + principalCreate + `">
-            <div class="row mt-3">
-                <div class="col-md-11">
-                    <P class="fs-5" ><b>Products` + principalCreate + `</b></p>
-                </div>
-                <div class="col-md-1">
-                    <button type="reset"  class="btn btn-danger float-right remove" value="` + principalCreate + `" name="remove"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            </div>
+            
             <div class="row">
-              <div class="form-group col-md-2 mt-2">
-                <label>Products:</label>
+              <div class="form-group col-md-2 mt-2" style="width: 14%;">
                 <select class="form-control" name="prod-` + principalCreate + `" id ="prod` + principalCreate + `">
                   <option value="">N/A</option>
                 </select> 
                 </div>
-                <div class="form-group col-md-2 mt-2">
-                <label>Product Varients:</label>
+                <div class="form-group col-md-2 mt-2" style="width: 14%;">
                 <select id="provarients` + principalCreate + `" class="form-control">
                     <option value="">N/A</option>
                 </select>
                 </div>
-                <div class="form-group col-md-1 mt-2">
-                <label>quantity:</label>
-                  <input type="number" id="quantity-` + principalCreate + `" class="form-control" onblur="getVal()">
+                <div class="form-group col-md-1 mt-2" style="width: 9%;">
+                  <input type="number" id="unit` + principalCreate + `" class="form-control" onblur="getVal()">
                 </div>
-                <div class="form-group col-md-1 mt-2">
-                <label>Price:</label>
-                  <input type="number" id="price-` + principalCreate + `" class="form-control" onblur="getVal()">
+                <div class="form-group col-md-1 mt-2" style="width: 9%;">
+                  <input type="number" id="qnt` + principalCreate + `" class="form-control" onmouseout="getVal()">
+                </div>
+                <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                  <input type="number" id="price` + principalCreate + `" class="form-control" onblur="getVal()">
                 </div>
                 
-                <div class="form-group col-md-2 mt-2">
-                  <label>Gross Amount:</label>
-                  <input type="number" id="grossamount-` + principalCreate + `" class="form-control">
+                <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                  <input type="number" id="grossamount` + principalCreate + `" class="form-control">
                 </div>
-                <div class="form-group col-md-2 mt-2">
-                  <label>GST %:</label>
-                  <input type="number" id="gst-` + principalCreate + `" class="form-control" onblur="getVal()">
+                <div class="form-group col-md-1 mt-2" style="width: 8%;">
+                  <input type="number" id="gst` + principalCreate + `" class="form-control" onblur="getVal()">
                 </div>
-                <div class="form-group col-md-2 mt-2">
-                  <label>Total Amount:</label>
-                  <input type="number" id="totalamount-` + principalCreate + `" class="form-control">
+                <div class="form-group col-md-2 mt-2" style="width: 14%;">
+                  <input type="number" id="totalamount` + principalCreate + `" class="form-control">
+                </div>
+                <div class="col-md-1 mt-2" style="width: 6%;">
+                    <button type="reset"  class="btn btn-danger float-right remove" value="` + principalCreate + `" name="remove"><i class="fa-solid fa-xmark"></i></button>
                 </div>
         </div>
                             
@@ -243,6 +261,7 @@ $("#adprincipal").on('click', function (e) {
           // product_varients_options = readValueFromObject(salesProduct[0].length);
           // $("#provarients" +principalCreate).append(product_varients_options);
        })
+       let aa = getValForAppendProduct(principalCreate);
 
       
   });
@@ -294,10 +313,10 @@ $("#adprincipal").on('click', function (e) {
   function idfind(){
         const ids = main.getInvoiceId().then(function(result){
          if(result[0][0] == undefined){
-          document.getElementById("invoiceno").value = 1 ;
+          document.getElementById("invoice_no").value = 1 ;
           }
           const id = result[0][0]['invoice_no'];
-          document.getElementById("invoiceno").value = id + 1 ;
+          document.getElementById("invoice_no").value = id + 1 ;
 
         })
         // for products listing
@@ -314,21 +333,6 @@ $("#adprincipal").on('click', function (e) {
                               </option>`);
             }
         })
-
-        // const salesProducts = main.getAllProductVarients().then(function(result){
-        // const salesProduct = result;
-        // console.log('salesProduct',salesProduct);
-        // for (let i = 0; i <= salesProduct.length; i++) {
-        //         let optn = salesProduct[0][i]['name'];
-        //         let el = document.createElement("option");
-        //         el.textContent = optn;
-        //         el.value = optn;
-        //       // document.getElementById('provarients').appendChild(el);
-        //       $("#provarients1").append(`<option value="${el.textContent}">
-        //                            ${el.value}
-        //                       </option>`);
-        //     }
-        // })
         
       }
 </script>
@@ -337,7 +341,7 @@ $("#adprincipal").on('click', function (e) {
     let productName = $(this).val();
     const salesProducts = main.getDropDownProductVarientsData(productName).then(function(result){
     const salesProduct = result;
-    const productId =salesProduct[0][0]['id'];
+    const productId = salesProduct[0][0]['id'];
 
     const salesProducts = main.getAllProductVarients(productId).then(function(result){
         const salesProduct = result;
@@ -356,28 +360,60 @@ $("#adprincipal").on('click', function (e) {
 </script>
 <script>
   function getVal() {
-  const productName = document.getElementById('prod').value;
-  const productsPrice = main.getSalesPrice(productName).then(function(result){
-          const salesPrice = result[0][0]['sales_price'];
-          document.getElementById("price").value = salesPrice ;
-   })
-  const val1 = document.getElementById('qnt').value;
-  const val2 = document.getElementById('price').value;
-  document.getElementById('grossamount').value = (val1*val2);
-  const grossamount =document.getElementById('grossamount').value
+    (  async function() {
+      const productName = document.getElementById('prod1').value;
+      const val1 = document.getElementById('qnt1').value;
+      myresponse = undefined
+      await main.getSalesPrice(productName).then(function(result){
+      const salesPrice = result[0][0]['sales_price'];
+      myresponse = salesPrice;
+      document.getElementById("price1").value = salesPrice ;
+      })
+      const val2 = document.getElementById('price1').value;
+      document.getElementById('grossamount1').value = (val1*val2);
+      const grossamount =document.getElementById('grossamount1').value
 
-  const gst = document.getElementById('gst').value;
-  const gstAmount =((grossamount*gst)/100);
-  // const totalamount = grossamount + gstAmount;
-  num1 = parseInt(document.getElementById("grossamount").value);
-  num2 = parseInt(gstAmount);
-   document.getElementById('totalamount').value = num1+num2;
+      const gst = document.getElementById('gst1').value;
+      const gstAmount =((grossamount*gst)/100);
+      // const totalamount = grossamount + gstAmount;
+      num1 = parseInt(document.getElementById("grossamount1").value);
+      num2 = parseInt(gstAmount);
+      document.getElementById('totalamount1').value = num1+num2;
+    })();
+}
+</script>
+<script>
+  function getValForAppendProduct(principalCreate) 
+  {
+    
+    (  async function() {
+      const productName = document.getElementById('prod'+principalCreate).value;
+     
+      myresponse = undefined
+      await main.getSalesPrice(productName).then(function(result){
+      const salesPrice = result[0][0]['sales_price'];
+      myresponse = salesPrice;
+      document.getElementById("price" +principalCreate).value = salesPrice ;
+      })
+       $('#qnt'+principalCreate).on('change', function(){
+        const val1 = document.getElementById('qnt'+principalCreate).value;
+        const val2 = document.getElementById('price'+ principalCreate).value;
+        document.getElementById('grossamount' +principalCreate).value = (val1*val2);
+        const grossamount =document.getElementById('grossamount'+principalCreate).value
 
+        const gst = document.getElementById('gst'+principalCreate).value;
+        const gstAmount =((grossamount*gst)/100);
+        num1 = parseInt(document.getElementById('grossamount' +principalCreate).value);
+        num2 = parseInt(gstAmount);
+        document.getElementById('totalamount'+principalCreate).value = num1+num2;
+    
+   });
+ })();
 }
 </script>
 <script>
   //for sales date bydefualt selected
-  document.getElementById('salesdate').valueAsDate = new Date();
+  document.getElementById('sales_date').valueAsDate = new Date();
 </script>
 
 </html>

@@ -1,15 +1,15 @@
 const main = require('../main')
 
 const salesForm = document.querySelector("#salesForm");
-const name = document.querySelector("#name");
+const customer_name = document.querySelector("#customer_name");
 const address = document.querySelector("#address");
 const country = document.querySelector("#country");
 const state = document.querySelector("#state");
 const city = document.querySelector("#city");
-const phone = document.querySelector("#phone");
-const invoiceno = document.querySelector("#invoiceno");
-const salesdate = document.querySelector("#salesdate");
-const orderno = document.querySelector("#orderno");
+const contact_no = document.querySelector("#contact_no");
+const invoice_no = document.querySelector("#invoice_no");
+const sales_date = document.querySelector("#sales_date");
+const order_no = document.querySelector("#order_no");
 // const prod = document.querySelector("#prod");
 // const provarients = document.querySelector("#provarients");
 const qnt = document.querySelector("#qnt");
@@ -22,19 +22,6 @@ const productsList = document.querySelector("#products");
 
 const custId = document.querySelector("#custId");
 
-const ids = localStorage.getItem("ids");
-const customer_name = localStorage.getItem("customer_name");
-const invoice_no = localStorage.getItem("invoice_no");
-const order_no = localStorage.getItem("order_no");
-const product = localStorage.getItem("product");
-const description = localStorage.getItem("description");
-const quantity   = localStorage.getItem("quantity");
-const price1 = localStorage.getItem("price");
-const phone1 = localStorage.getItem("phone");
-const address1 = localStorage.getItem("address1");
-const gst1 = localStorage.getItem("gst");
-const amount = localStorage.getItem("amount");
-const total_amount = localStorage.getItem("total_amount");
 
 
 salesForm.addEventListener('submit', async(e) =>{
@@ -42,17 +29,17 @@ salesForm.addEventListener('submit', async(e) =>{
     try{
         e.preventDefault();
         const product ={
-            // customer_name:name.value,
-            // address1:address.value,
-            // country:country.value,
-            // state:state.value,
-            // city:city.value,
-            // phone:phone.value,
-            // invoice_no:invoiceno.value,
-            // sales_date:salesdate.value,
-            // order_no:orderno.value,
+            customer_name:customer_name.value,
+            address:address.value,
+            country:country.value,
+            state:state.value,
+            city:city.value,
+            contact_no:contact_no.value,
+            invoice_no:invoice_no.value,
+            sales_date:sales_date.value,
+            order_no:order_no.value,
             // product:prod.value,
-            custId:custId.value,
+            
             // product_varient_id:provarients.value,
             // quantity:qnt.value,
             // price:price.value,
@@ -60,32 +47,34 @@ salesForm.addEventListener('submit', async(e) =>{
             // amount:grossamount.value,
             // gst:gst.value,
             // total_amount:totalamount.value,
-            
         }
-            const prod = [];
+        const productItem ={
+            custId:custId.value,
+        }
+    
+        const savedProduct = await main.createSales(product);
+        
+        const prod = [];
+        
+        for(let i = 1; i <= custId.value ; i++) {
+            var ddl_product_id = `ddl-product-${i}`;
+            var ddl_product_varient_id = `ddl-product-varient-${i}`;
+            const ddl_product_value = document.querySelector("#"+ddl_product_id).value;
+            const ddl_product_varient_value = document.querySelector("#"+ddl_product_varient_id).value;
             
-            for(let i = 1; i <= custId.value ; i++) {
-                var ddl_product_id = `ddl-product-${i}`;
-                var ddl_product_varient_id = `ddl-product-varient-${i}`;
-                const ddl_product_value = document.querySelector("#"+ddl_product_id).value;
-                const ddl_product_varient_value = document.querySelector("#"+ddl_product_varient_id).value;
-
-                let myrecord = {
-                    ddl_product_id: ddl_product_value,
-                    ddl_product_varient_id: ddl_product_varient_value,
-                };
-                prod.push(myrecord);
-
+            let myrecord = {
+                ddl_product_id: ddl_product_value,
+                ddl_product_varient_id: ddl_product_varient_value,
+            };
+            prod.push(myrecord);
+            
             {
-
+                
             }
-           
+            const savedProductItem = await main.createProductSalesItem(prod);
+            
         }
         console.log(prod);
-        // console.log(prod);
-        // console.log(product);
-        //   const savedProduct = await main.createSales(product);
-        //   console.log(savedProduct);
           
         //   salesForm.reset()
         //   name.focus()

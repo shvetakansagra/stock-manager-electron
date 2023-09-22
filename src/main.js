@@ -20,6 +20,24 @@ const createSales = async (product) => {
       console.log(error);
     }
   };
+  const createProductSalesItem = async (product) => {
+    try {
+      const conn = await getConnection();
+      const result = await conn.query("INSERT INTO sales_items SET ?", product);
+      product.id = result.insertId;
+   
+      // Notify the User
+      new Notification({
+        title: "Electron Mysql",
+        body: "New Product Saved Successfully",
+      }).show();
+   
+      // Return the created Product
+      return product
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getInvoiceId = async () => {
 
     const ids = [];
@@ -49,7 +67,7 @@ const createSales = async (product) => {
 
     const products = [];
     const conn = await getConnection();
-    const results = conn.query("SELECT name FROM products ORDER BY id DESC");
+    const results = conn.query("SELECT id,name FROM products ORDER BY id DESC");
     data = await results.then((result) => {
       products.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {
@@ -174,6 +192,6 @@ const createSales = async (product) => {
     getAllProducts,
     getAllProductVarients,
     getSalesPrice,
-    editSalesInvoiceDatas,
+    createProductSalesItem,
     getDropDownProductVarientsData
   };   
