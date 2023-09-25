@@ -34,20 +34,20 @@
             <div class="row">
               <div class="form-group col-md-4 mt-2">
                 <label style="width: 136px;">Invoice No</label>
-                  <input type="number" id="invoice_no" class="form-control">
+                  <input type="number" id="invoice_no" class="form-control" autofocus/>
                 </div>
                 <div class="form-group col-md-4 mt-2">
                   <label style="width: 136px;">Sales Date</label>
-                  <input type="date" id="sales_date" class="form-control">
+                  <input type="date" id="sales_date" class="form-control" />
                   </div>
                   <div class="form-group col-md-4 mt-2">
-                    <label style="width: 136px;">order_no</label>
-                      <input type="text" id="order_no" class="form-control">
+                    <label style="width: 136px;">Order_no</label>
+                      <input type="text" id="order_no" class="form-control"/>
                     </div>
                   <div class="col-md-4">
                       <div class="form-group mt-2">
                           <label style="width: 200px;">Customer Name</label></br>
-                          <input type="text" id="customer_name" class="form-control">
+                          <input type="text" id="customer_name" class="form-control"/>
                         </div>
                   </div> 
                   <div class="form-group col-md-8 mt-2">
@@ -56,19 +56,19 @@
                     </div> 
                   <div class="form-group col-md-4 mt-2">
                     <label style="width: 200px;">Country</label>
-                    <select id="country" onchange="random_function()" class="form-control" autofocus>
+                    <select id="country" onchange="random_function()" class="form-control">
                       <option value="">select option</option>
                       <option value="INDIA">INDIA</option>
                      </select>
                     </div>
                     <div class="form-group col-md-4 mt-2">
                       <label style="width: 200px;">state</label>
-                     <select id="state" onchange="" class="form-control" autofocus>
+                     <select id="state" onchange="" class="form-control">
                      <option value="">select option</option></select>
                    </div>
                    <div class="form-group col-md-4 mt-2">
                     <label style="width: 200px;">city</label>
-                     <select id="city" onchange="" class="form-control" autofocus>
+                     <select id="city" onchange="" class="form-control">
                        <option value="">select option</option>
                        <option value="vadodara">vadodara</option>
                        <option value="mehsana">mehsana</option>
@@ -76,11 +76,11 @@
                      </div>
                      <div class="form-group col-md-4 mt-2">
                       <label style="width: 200px;">Contact No</label>
-                        <input type="number" id="contact_no" class="form-control">
+                        <input type="number" id="contact_no" class="form-control"/>
                       </div>
                       <div class="form-group col-md-4 mt-2">
                           <label style="width: 136px;">GST No</label>
-                          <input type="text" id="gst_no" class="form-control">
+                          <input type="text" id="gst_no" class="form-control"/>
                        </div>
                 </div>
                 
@@ -108,29 +108,29 @@
                   </select>
                   </div>
                   <div class="form-group col-md-1 mt-2" style="width: 9%;">
-                  <label>quantity</label>
-                    <input type="number" id="qnt1" class="form-control" onblur="getVal()">
+                  <label>Quantity</label>
+                    <input type="number" id="qnt1" class="form-control" onblur="getVal()"/>
                   </div>
                   <div class="form-group col-md-1 mt-2" style="width: 9%;">
-                    <label>unit</label>
-                      <input type="number" id="unit1" class="form-control" onblur="getVal()">
+                    <label>Unit</label>
+                      <input type="number" id="unit1" class="form-control" onblur="getVal()"/>
                     </div>
                   <div class="form-group col-md-1 mt-2" style="width: 13%;">
                   <label>Price</label>
-                    <input type="number" id="price1" class="form-control" onblur="getVal()">
+                    <input type="number" id="price1" class="form-control" onblur="getVal()"/>
                   </div>
                   
                   <div class="form-group col-md-2 mt-2" style="width: 13%;">
                     <label>Gross Amount</label>
-                    <input type="number" id="grossamount1" class="form-control">
+                    <input type="number" id="grossamount1" class="form-control"/>
                   </div>
                   <div class="form-group col-md-1 mt-2" style="width: 8%;">
                     <label>GST %</label>
-                    <input type="number" id="gst1" class="form-control" onblur="getVal()">
+                    <input type="number" id="gst1" class="form-control" onblur="getVal()"/>
                   </div>
                   <div class="form-group col-md-2 mt-2" style="width: 14%;">
                     <label>Total Amount</label>
-                    <input type="number" id="totalamount1" class="form-control">
+                    <input type="number" id="totalamount1" class="form-control"/>
                   </div></br>
                 </div>
                 <div id="principal_append">
@@ -192,7 +192,7 @@ $("#adprincipal").on('click', function (e) {
             
             <div class="row">
               <div class="form-group col-md-2 mt-2" style="width: 14%;">
-                <select class="form-control" name="prod-` + principalCreate + `" id ="prod` + principalCreate + `">
+                <select class="form-control" name="prod` + principalCreate + `" id ="prod` + principalCreate + `">
                   <option value="">N/A</option>
                 </select> 
                 </div>
@@ -202,10 +202,10 @@ $("#adprincipal").on('click', function (e) {
                 </select>
                 </div>
                 <div class="form-group col-md-1 mt-2" style="width: 9%;">
-                  <input type="number" id="unit` + principalCreate + `" class="form-control" onblur="getVal()">
+                  <input type="number" id="qnt` + principalCreate + `" class="form-control" onmouseout="getVal()">
                 </div>
                 <div class="form-group col-md-1 mt-2" style="width: 9%;">
-                  <input type="number" id="qnt` + principalCreate + `" class="form-control" onmouseout="getVal()">
+                  <input type="number" id="unit` + principalCreate + `" class="form-control" onblur="getVal()">
                 </div>
                 <div class="form-group col-md-2 mt-2" style="width: 13%;">
                   <input type="number" id="price` + principalCreate + `" class="form-control" onblur="getVal()">

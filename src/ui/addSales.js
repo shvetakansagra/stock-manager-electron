@@ -12,12 +12,12 @@ const sales_date = document.querySelector("#sales_date");
 const order_no = document.querySelector("#order_no");
 // const prod = document.querySelector("#prod");
 // const provarients = document.querySelector("#provarients");
-const qnt = document.querySelector("#qnt");
-const price = document.querySelector("#price");
-const prodesc = document.querySelector("#prodesc");
-const grossamount = document.querySelector("#grossamount");
-const gst = document.querySelector("#gst");
-const totalamount = document.querySelector("#totalamount");
+// const qnt = document.querySelector("#qnt");
+// const price = document.querySelector("#price");
+// const prodesc = document.querySelector("#prodesc");
+// const grossamount = document.querySelector("#grossamount");
+// const gst = document.querySelector("#gst");
+// const totalamount = document.querySelector("#totalamount");
 const productsList = document.querySelector("#products");
 
 const custId = document.querySelector("#custId");
@@ -38,38 +38,38 @@ salesForm.addEventListener('submit', async(e) =>{
             invoice_no:invoice_no.value,
             sales_date:sales_date.value,
             order_no:order_no.value,
-            // product:prod.value,
-            
-            // product_varient_id:provarients.value,
-            // quantity:qnt.value,
-            // price:price.value,
-            // description:prodesc.value,
-            // amount:grossamount.value,
-            // gst:gst.value,
-            // total_amount:totalamount.value,
         }
+        
+        const savedProduct = await main.createSales(product);
+    
         const productItem ={
             custId:custId.value,
         }
-    
-        const savedProduct = await main.createSales(product);
-        
+         
+        console.log('555555555',custId);
         const prod = [];
         
         for(let i = 1; i <= custId.value ; i++) {
-            var ddl_product_id = `ddl-product-${i}`;
-            var ddl_product_varient_id = `ddl-product-varient-${i}`;
-            const ddl_product_value = document.querySelector("#"+ddl_product_id).value;
-            const ddl_product_varient_value = document.querySelector("#"+ddl_product_varient_id).value;
+            console.log('3333333',custId.value);
+            var ddl_product_id = 'prod'+custId.value;
+            console.log('77777777777',ddl_product_id);
+            var ddl_product_varient_id = 'provarients'+custId.value;
+            console.log('888888888888',ddl_product_varient_id);
+            var qnt = 'qnt'+custId.value;
+            console.log('888888888888',qnt);
+
+            const ddl_product_value = document.getElementById(ddl_product_id).value;
+            const ddl_product_varient_value = document.getElementById(ddl_product_varient_id).value;
+            const qnt = document.getElementById(qnt).value;
             
             let myrecord = {
-                ddl_product_id: ddl_product_value,
-                ddl_product_varient_id: ddl_product_varient_value,
+                invoice_no:invoice_no.value,
+                product_id: ddl_product_value,
+                product_varients_id: ddl_product_varient_value,
+                quantity: qnt,
             };
             prod.push(myrecord);
-            
             {
-                
             }
             const savedProductItem = await main.createProductSalesItem(prod);
             
@@ -77,7 +77,7 @@ salesForm.addEventListener('submit', async(e) =>{
         console.log(prod);
           
         //   salesForm.reset()
-        //   name.focus()
+        //   customer_name.focus()
         //   location.href='sales.html'
 
     }catch(error){
