@@ -38,6 +38,7 @@ salesForm.addEventListener('submit', async(e) =>{
             invoice_no:invoice_no.value,
             sales_date:sales_date.value,
             order_no:order_no.value,
+            total_amount:total_amount.value,
         }
         
         const savedProduct = await main.createSales(product);
@@ -45,40 +46,38 @@ salesForm.addEventListener('submit', async(e) =>{
         const productItem ={
             custId:custId.value,
         }
-         
-        console.log('555555555',custId);
         const prod = [];
         
         for(let i = 1; i <= custId.value ; i++) {
-            console.log('3333333',custId.value);
-            var ddl_product_id = 'prod'+custId.value;
-            console.log('77777777777',ddl_product_id);
-            var ddl_product_varient_id = 'provarients'+custId.value;
-            console.log('888888888888',ddl_product_varient_id);
-            var qnt = 'qnt'+custId.value;
-            console.log('888888888888',qnt);
+            var ddl_product_id = 'prod'+i;
+            var ddl_product_varient_id = 'provarients'+i;
+            var qnt_id = 'qnt'+i;
+            var price_id = 'price'+i;
+            var total_id = 'totalamount'+i;
 
             const ddl_product_value = document.getElementById(ddl_product_id).value;
             const ddl_product_varient_value = document.getElementById(ddl_product_varient_id).value;
-            const qnt = document.getElementById(qnt).value;
+            const qnt_value = document.getElementById(qnt_id).value;
+            const price_value = document.getElementById(price_id).value;
+            const total_value = document.getElementById(total_id).value;
             
             let myrecord = {
                 invoice_no:invoice_no.value,
                 product_id: ddl_product_value,
                 product_varients_id: ddl_product_varient_value,
-                quantity: qnt,
+                quantity: qnt_value,
+                price: price_value,
+                total: total_value,
+                total: total_value,
             };
-            prod.push(myrecord);
-            {
-            }
-            const savedProductItem = await main.createProductSalesItem(prod);
             
-        }
+                const savedProductItem = await main.createProductSalesItem(myrecord);
+            }
         console.log(prod);
           
-        //   salesForm.reset()
-        //   customer_name.focus()
-        //   location.href='sales.html'
+          salesForm.reset()
+          customer_name.focus()
+          location.href='sales.html'
 
     }catch(error){
         console.log(error);
