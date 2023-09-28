@@ -102,7 +102,7 @@ const createSales = async (product) => {
   const getSalesPrice = async (productName) => {
     const productsPrice = [];
     const conn = await getConnection();
-    const results = conn.query("SELECT sales_price from varient_products WHERE id =" + conn.escape(productName));
+    const results = conn.query("SELECT sales_price,unit from varient_products WHERE id =" + conn.escape(productName));
     data = await results.then((result) => {
       productsPrice.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {

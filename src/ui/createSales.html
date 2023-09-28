@@ -317,16 +317,15 @@ $("#adprincipal").on('click', function (e) {
         })
         // for products listing
         const products = main.getAllProducts().then(function(result){
+          $('#prod1').empty().append(new Option('Select all', 'all'));
         const productName = result;
-        for (let i = 0; i <= productName.length; i++) {
-                let optn = productName[0][i]['name'];
+        let product_options = "";
+        for (let i = 0; i <productName[0].length; i++) {
                 let id = productName[0][i]['id'];
-                let el = document.createElement("option");
-                el.textContent = optn;
-                el.value = optn;
-          
-            $("#prod1").append(`<option value="${id}">${el.value}</option>`);
-            }
+                let name = productName[0][i]['name'];
+                product_options += `<option value="${id}">${name}</option>`;
+              }
+              $("#prod1").append(product_options);
         })
         
       }
