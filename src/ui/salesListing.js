@@ -1,5 +1,10 @@
 
-const main = require('../main')
+
+
+const { format } = require('mysql2');
+const main = require('../main');
+// var dateFormat = require('dateformat');
+// const date_format = require('date_format')
 
 const productsList = document.querySelector("#products");
 let products = [];
@@ -10,35 +15,32 @@ function renderProducts(tasks) {
     <table class="table">
   <thead>
   <tr>
-  <th style="width:55px;">Index</th>
-        <th style="width:30px;">Invoice No</th>
-        <th style="width:100px;">Sales Date</th>
-        <th style="width:55px;">Customer Name</th>
-        <th style="width:55px;">Order No</th>
-        <th style="width:55px;">Contact No</th>
-        <th style="width:55px;">Total Amount</th>
+  <th style="width:60px;">Index</th>
+        <th style="width:80px;">Invoice No</th>
+        <th style="width:120px;">Sales Date</th>
+        <th style="width:100px;">Customer Name</th>
+        <th style="width:70px;">Order No</th>
+        <th style="width:27px;">Contact No</th>
+        <th style="width:75px;">Total Amount</th>
         <th style="width:100px;">Action</th>
-    </tr>
-  </thead>
-  </table>`
+    </tr></thead></table>`;
     tasks[0].forEach(function (t) {
       productsList.innerHTML += `
       <table class="table">
       <tbody>
          <tr>
-          <td style="width:50px;">${t.id}</td>
-          <td style="width:30px;">${t.invoice_no}</td>
-          <td style="width:55px">${t.sales_date}</td>
-          <td style="width:55px;">${t.customer_name}</td>
-          <td style="width:55px;">${t.order_no}</td>
-          <td style="width:55px;">${t.contact_no}</td>
-          <td style="width:55px;">${t.total_amount}</td></br>
+          <td style="width:60px;">${t.id}</td>
+          <td style="width:100px;">${t.invoice_no}</td>
+          <td style="width:120px;">${t.sales_date.split("T", 1)}</td>
+          <td style="width:100px;">${t.customer_name}</td>
+          <td style="width:70px;">${t.order_no}</td>
+          <td style="width:30px;">${t.contact_no}</td>
+          <td style="width:75px;">${t.total_amount}</td>
           <td style="width:100px;">
-          <a class="btn btn-primary" onclick="editSalesInvoice('${t.id}')">Edit</a></td></br>
+          <a class="btn btn-primary" onclick="editSalesInvoice('${t.id}')">Edit</a></td>
       </tr>
       </tbody>
-    </table>
-             `;
+    </table>`;
     })
 }
 
