@@ -1,7 +1,7 @@
 const main = require('../main');
-const qr = require("qrcode");
 
-const salesForm = document.querySelector("#salesForm");
+
+const purchaseForm = document.querySelector("#purchaseForm");
 const customer_name = document.querySelector("#customer_name");
 const address = document.querySelector("#address");
 const country = document.querySelector("#country");
@@ -11,24 +11,15 @@ const contact_no = document.querySelector("#contact_no");
 const invoice_no = document.querySelector("#invoice_no");
 const sales_date = document.querySelector("#sales_date");
 const order_no = document.querySelector("#order_no");
-// const prod = document.querySelector("#prod");
-// const provarients = document.querySelector("#provarients");
-// const qnt = document.querySelector("#qnt");
-// const price = document.querySelector("#price");
-// const prodesc = document.querySelector("#prodesc");
-// const grossamount = document.querySelector("#grossamount");
-// const gst = document.querySelector("#gst");
-// const totalamount = document.querySelector("#totalamount");
 const productsList = document.querySelector("#products");
 
 const custId = document.querySelector("#custId");
 
-
-
-salesForm.addEventListener('submit', async(e) =>{
+purchaseForm.addEventListener('submit', async(e) =>{
     
     try{
         e.preventDefault();
+       
         const product ={
             customer_name:customer_name.value,
             address:address.value,
@@ -77,7 +68,7 @@ salesForm.addEventListener('submit', async(e) =>{
             }
         console.log(prod);
           
-          salesForm.reset()
+        purchaseForm.reset()
           customer_name.focus()
           location.href='sales.html'
 

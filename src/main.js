@@ -39,7 +39,6 @@ const createSales = async (product) => {
     }
   };
   const getInvoiceId = async () => {
-
     const ids = [];
     const conn = await getConnection();
     const results = conn.query("SELECT invoice_no FROM sales ORDER BY id DESC LIMIT 1");
@@ -52,8 +51,7 @@ const createSales = async (product) => {
   }
   
  const getProducts = async () => {
-
-    const products = [];
+   const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT * FROM sales ORDER BY id DESC");
     data = await results.then((result) => {
@@ -64,7 +62,6 @@ const createSales = async (product) => {
     return products;
   };
   const getAllProducts = async () => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT id,name FROM products ORDER BY id DESC");
@@ -76,7 +73,6 @@ const createSales = async (product) => {
     return products;
   };
   const getDropDownProductVarientsData = async (productName) => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT id, name FROM products WHERE id =" + conn.escape(productName));
@@ -88,7 +84,6 @@ const createSales = async (product) => {
     return products;
   }
   const getAllProductVarients = async (productId) => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT id, name FROM varient_products WHERE product_id =" + conn.escape(productId));
@@ -110,11 +105,33 @@ const createSales = async (product) => {
     });
     return productsPrice;
   }
-
+  const getCompanies = async () => {
+    const products = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT * FROM companies ORDER BY id DESC");
+    console.log('5555555',results);
+    data = await results.then((result) => {
+      products.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return products;
+  };
+  const getCompanyAddressById = async (Id) => {
+    const products = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT address1 FROM companies WHERE id ="  + conn.escape(Id));
+    console.log('5555555',results);
+    data = await results.then((result) => {
+      products.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return products;
+  };
   async function init() {
     getProducts();
   }
-  
   init(); 
 
   //edit sales 
@@ -193,5 +210,7 @@ const createSales = async (product) => {
     getAllProductVarients,
     getSalesPrice,
     createProductSalesItem,
-    getDropDownProductVarientsData
+    getDropDownProductVarientsData,
+    getCompanies,
+    getCompanyAddressById
   };   

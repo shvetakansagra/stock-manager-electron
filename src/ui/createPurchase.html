@@ -29,16 +29,16 @@
       <div class="text-end mb-3">
           <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
         </div>
-        <form id="salesForm" class="card card-body">
-          <h2 class="text-center py-3">Sales Invoice</h2>
+        <form id="purchaseForm" class="card card-body">
+          <h2 class="text-center py-3">Purchase Invoice</h2>
             <div class="row">
               <div class="form-group col-md-4 mt-2">
                 <label style="width: 136px;">Invoice No</label>
                   <input type="number" id="invoice_no" class="form-control" autofocus/>
                 </div>
                 <div class="form-group col-md-4 mt-2">
-                  <label style="width: 136px;">Sales Date</label>
-                  <input type="date" id="sales_date" class="form-control" />
+                  <label style="width: 136px;">Purchase Date</label>
+                  <input type="date" id="purchase_date" class="form-control" />
                   </div>
                   <div class="form-group col-md-4 mt-2">
                     <label style="width: 136px;">Order_no</label>
@@ -46,8 +46,9 @@
                     </div>
                   <div class="col-md-4">
                       <div class="form-group mt-2">
-                          <label style="width: 200px;">Customer Name</label></br>
-                          <input type="text" id="customer_name" class="form-control"/>
+                          <label style="width: 200px;">Company</label></br>
+                          <select id="company" onchange="" class="form-control">
+                            <option value="">Select Option</option></select>
                         </div>
                   </div> 
                   <div class="form-group col-md-8 mt-2">
@@ -173,10 +174,10 @@
       </div>
   </main>
 </body>
- <script type="module" src="./addSales.js"></script>
+ <script type="module" src="./addPurchase.js"></script>
  <script>
   /*
-   Append + Sales Invoice ......
+   Append + Principal detalis Principle......
 */
 
 var principalCreate = 1;
@@ -222,7 +223,7 @@ $("#adprincipal").on('click', function (e) {
                             
      </div>`);
      $('#custId').val(principalCreate);
-     const products = main.getAllProducts().then(function(result){
+     const products = main.getCompanys().then(function(result){
         const productName = result;
         let product_options = "";
         $('#prod').empty().append(new Option('Select all', 'all'));
@@ -232,10 +233,6 @@ $("#adprincipal").on('click', function (e) {
                 product_options += `<option value="${id}">${name}</option>`;
               }
               $("#prod" +principalCreate).append(product_options);
-   
-        // product_options = readValueFromObject(productName[0].length);
-        // console.log('8888888888888',product_options);
-        // $("#prod" +principalCreate).append(product_options);
         })
     $("#prod" +principalCreate).change(function(){
       let productName = $(this).val();
@@ -250,7 +247,6 @@ $("#adprincipal").on('click', function (e) {
                 let name = salesProduct[0][i]['name'];
                 product_varients_options += `<option value="${id}">${name}</option>`;
                 }
-                $("#provarients" +principalCreate).append(product_varients_options);
            })
           // $('#provarients'+principalCreate+' option').remove();
           // product_varients_options = readValueFromObject(salesProduct[0].length);
@@ -297,41 +293,36 @@ $("#adprincipal").on('click', function (e) {
         document.getElementById("state").innerHTML = string;
     }
 </script>
-
 <script>
-  const main = require('../main');
-  const qr = require("qrcode");
+const main = require('../main');
   function idfind(){
-    
-        const ids = main.getInvoiceId().then(function(result){
-         if(result[0][0] == undefined){
-          document.getElementById("invoice_no").value = 1 ;
-          }
-          const id = result[0][0]['invoice_no'];
-          document.getElementById("invoice_no").value = id + 1 ;
-
-        })
-        // for products listing
-        const products = main.getAllProducts().then(function(result){
-          $('#prod1').empty().append(new Option('Select all', 'all'));
-          
-
-        const productName = result;
-        let product_options = "";
-        for (let i = 0; i <productName[0].length; i++) {
-                let id = productName[0][i]['id'];
-                let name = productName[0][i]['name'];
-                product_options += `<option value="${id}">${name}</option>`;
+    $('#custId').val(principalCreate);
+     const Company = main.getCompanies().then(function(result){
+        const companyName = result;
+        let company_options = "";
+        $('#company').empty().append(new Option('Select all', 'all'));
+        for (let i = 0; i < companyName[0].length; i++) {
+                let id = companyName[0][i]['id'];
+                let name = companyName[0][i]['name'];
+                company_options += `<option value="${id}">${name}</option>`;
               }
-              $("#prod1").append(product_options);
+              $("#company").append(company_options);
+            })
+          }
+          $("#company").change(function () {
+        let companyId = $(this).val();
+        const salesProducts = main.getCompanyAddressById(companyId).then(function (result) {
+            const salesProduct = result;
+            const companyAddressData = salesProduct[0][0]['address1'];
+            const companyAddressDatas = salesProduct[0][0]['address1'];
+            console.log('9999999999',companyAddressData);
+            document.getElementById('address').value = companyAddressData;
         })
-        
-      }
+    });
 </script>
 <script type="text/javascript">
     $("#prod1").change(function () {
         let productName = $(this).val();
-        
         const salesProducts = main.getDropDownProductVarientsData(productName).then(function (result) {
             const salesProduct = result;
             const productId = salesProduct[0][0]['id'];
@@ -353,11 +344,6 @@ $("#adprincipal").on('click', function (e) {
   function getVal() {
     (  async function() {
       const productName = document.getElementById('provarients1').value;
-      let stJson = JSON.stringify(productName);
-          qr.toString(stJson,{type:"terminal"},function(err,code){
-          if(err)return console.log("error");
-          console.log(code,"7");
-          })
       const val1 = document.getElementById('qnt1').value;
       myresponse = undefined
       await main.getSalesPrice(productName).then(function(result){
@@ -410,7 +396,7 @@ $("#adprincipal").on('click', function (e) {
 
 <script>
   //for sales date bydefualt selected
-  document.getElementById('sales_date').valueAsDate = new Date();
+  document.getElementById('purchase_date').valueAsDate = new Date();
 </script>
 <script type="text/javascript">
 
