@@ -110,6 +110,17 @@ const createSales = async (product) => {
     });
     return productsPrice;
   }
+  const getQrCodeDatas =async(productName)=>{
+    const products=[];
+    const conn = await getConnection();
+    const results = conn.query("SELECT qr_code from varient_products WHERE id =" + conn.escape(productName));
+    data = await results.then((result) => {
+      products.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return products;
+  }
 
   async function init() {
     getProducts();
@@ -191,6 +202,7 @@ const createSales = async (product) => {
     getInvoiceId,
     getAllProducts,
     getAllProductVarients,
+    getQrCodeDatas,
     getSalesPrice,
     createProductSalesItem,
     getDropDownProductVarientsData

@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stock Manager Application</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <style>
     body {
@@ -179,6 +180,9 @@
   </main>
 </body>
  <script type="module" src="./addSales.js"></script>
+ <!-- <script>
+  JsBarcode("#barcode", "Hi world!");
+ </script> -->
  <script>
   /*
    Append + Principal detalis Principle......
@@ -305,6 +309,7 @@ $("#adprincipal").on('click', function (e) {
 
 <script>
   const main = require('../main');
+  const qr = require("qrcode"); 
   function idfind(){
         const ids = main.getInvoiceId().then(function(result){
          if(result[0][0] == undefined){
@@ -350,28 +355,43 @@ $("#adprincipal").on('click', function (e) {
 </script>
 
 <script>
-  function getVal() {
-    (  async function() {
+function getVal() 
+{
+  (async function ()
+    {
       const productName = document.getElementById('provarients1').value;
-      const val1 = document.getElementById('qnt1').value;
-      myresponse = undefined
-      await main.getSalesPrice(productName).then(function(result){
-      const salesPrice = result[0][0]['sales_price'];
-      myresponse = salesPrice;
-      document.getElementById("price1").value = salesPrice ;
-      })
-      const val2 = document.getElementById('price1').value;
-      document.getElementById('grossamount1').value = (val1*val2);
-      const grossamount =document.getElementById('grossamount1').value
+      const getQrCodeData = main.getQrCodeDatas(productName).then(function (result) {
+           const qr = result[0][0]['qr_code'];
+           const text = qr; // text to convert
+           const base64Str = textToBase64Barcode(text); 
+          })
+
       
-      const gst = document.getElementById('gst1').value;
-      const gstAmount =((grossamount*gst)/100);
-      // const totalamount = grossamount + gstAmount;
-      num1 = parseInt(document.getElementById("grossamount1").value);
-      num2 = parseInt(gstAmount);
-      document.getElementById('totalamount1').value = num1+num2;
-      TotalGross();
-    })();
+        const val1 = document.getElementById('qnt1').value;
+        myresponse = undefined
+        await main.getSalesPrice(productName).then(function (result) {
+            const salesPrice = result[0][0]['sales_price'];
+            myresponse = salesPrice;
+            document.getElementById("price1").value = salesPrice;
+        })
+        const val2 = document.getElementById('price1').value;
+        document.getElementById('grossamount1').value = (val1 * val2);
+        const grossamount = document.getElementById('grossamount1').value
+
+        const gst = document.getElementById('gst1').value;
+        const gstAmount = ((grossamount * gst) / 100);
+        // const totalamount = grossamount + gstAmount;
+        num1 = parseInt(document.getElementById("grossamount1").value);
+        num2 = parseInt(gstAmount);
+        document.getElementById('totalamount1').value = num1 + num2;
+        TotalGross();
+    })
+    ();
+    function textToBase64Barcode(text){
+     var canvas = document.createElement("canvas");
+     JsBarcode(canvas, text, {format: "CODE39"});
+     return canvas.toDataURL("image/png");
+}
 }
 </script>
 <script>
