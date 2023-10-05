@@ -12,8 +12,8 @@
     <div class="container-flude">
         <form id="productForm" class="card card-body">
           <div align="right">
-          <a type="submit" class="btn btn-primary" onclick="location.href='createSales.html'">Add</a>
-          <a type="submit" class="btn btn-primary" onclick="location.href='index.html'">Back</a>
+          <a id="add" type="submit" class="btn btn-primary" onclick="location.href='createSales.html'">Add</a>
+          <a id="back" type="submit" class="btn btn-primary" onclick="location.href='index.html'">Back</a>
           </div>
           </form>
     </div>
@@ -25,6 +25,16 @@
     </div>
 </body>
 <script type="module" src="./salesListing.js"></script> 
+<script>
+    document.onkeyup = function(e) {
+   if (e.ctrlKey && e.shiftKey && e.which == 65) {
+    document.getElementById("add").click();
+   }ifelse (e.ctrlKey && e.which == 66) 
+   {
+    document.getElementById("back").click(); 
+   }
+};
+</script>
 </html>
 <script type="text/javascript">
 const main = require('../main');
@@ -32,4 +42,6 @@ const main = require('../main');
        const editSalesInvoiceId = id;
        await main.editSalesInvoiceDatas(editSalesInvoiceId);
 }
+
+
 </script>

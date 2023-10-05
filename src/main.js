@@ -193,7 +193,11 @@ const createSales = async (product) => {
                    })
      window.loadFile("src/ui/index.html");
    }
+   const electron = require ('electron')
 
+// const app = electron.app // electron module
+// const BrowserWindow = electron.BrowserWindow //enables UI
+// const Menu = electron.Menu // menu module
 
    module.exports = {
     createWindow,

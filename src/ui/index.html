@@ -31,10 +31,17 @@
         <form id="productForm">
           <div class="card">
           
-          <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'" ><i class="fa fa-shopping-cart"></i></br>Sales</a>
+          <a id="sales" type="submit" class="btn btn-primary" onclick="location.href='sales.html'" ><i class="fa fa-shopping-cart"></i></br>Sales</a>
           <!-- <a type="submit1" class="btn btn-primary" onclick="location.href='purchase.html'">Purchase</a> -->
           </div>
           </form>
     </div>
 </body>
 </html>
+<script>
+    document.onkeyup = function(e) {
+   if (e.ctrlKey && e.which == 83) {
+    document.getElementById("sales").click();
+  } 
+};
+</script>

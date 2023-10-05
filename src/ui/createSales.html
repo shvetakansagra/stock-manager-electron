@@ -28,7 +28,7 @@
      
     <div class="sales-invoice11 p-5">
       <div class="text-end mb-3">
-          <a type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
+          <a id="back" type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
         </div>
         <form id="salesForm" class="card card-body">
           <h2 class="text-center py-3">Sales Invoice</h2>
@@ -92,7 +92,7 @@
                       <h3 class="mb-3">Products</h3>
                   </div>
                   <div class="col-md-1 text-end">
-                      <button type="button" id="adprincipal" class="btn btn-primary"><i class="fa fa-plus"  aria-hidden="true"></i></button>
+                      <button  type="button" id="adprincipal" class="btn btn-primary">New</button>
                   </div>
                 </div>
                  <div class="row">
@@ -225,7 +225,7 @@ $("#adprincipal").on('click', function (e) {
                   <input type="number" id="totalamount` + principalCreate + `" class="form-control">
                 </div>
                 <div class="col-md-1 mt-2" style="width: 6%;">
-                    <button type="reset"  class="btn btn-danger float-right remove" value="` + principalCreate + `" name="remove"><i class="fa-solid fa-xmark"></i></button>
+                    <button id="remove`+ principalCreate +`" type="reset"  class="btn btn-danger float-right remove" value="` + principalCreate + `" name="remove"><i class="fa-solid fa-xmark"></i></button>
                 </div>
         </div>
                             
@@ -306,7 +306,22 @@ $("#adprincipal").on('click', function (e) {
         document.getElementById("state").innerHTML = string;
     }
 </script>
+<script>
+  document.onkeyup = function(e) {
+   if (e.ctrlKey && e.which == 65) {
+     document.getElementById("add").click();
+  } 
+    else if (e.ctrlKey && e.which == 66) {
+    document.getElementById("back").click();
+  }else if (e.ctrlKey && e.which == 78) {
+    document.getElementById("adprincipal").click();
+  }else if (e.ctrlKey && e.which == 82) {
+    document.getElementById('remove'+ principalCreate).click();
+  }
+};
+   
 
+</script>
 <script>
   const main = require('../main');
   const qr = require("qrcode"); 
