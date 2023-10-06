@@ -103,7 +103,7 @@
                   </select> 
                   </div>
                   <div class="form-group col-md-2 mt-2" style="width: 14%;">
-                  <label>Product Varients</label>
+                    <label>Product Varients</label>
                   <select id="provarients1" class="form-control">
                       <option value="">N/A</option>
                   </select>
@@ -164,18 +164,13 @@
                 </div>
                 
                   <div class="text-center pt-4 pb-2">
-                  <button type="submit" class="btn btn-primary sub-btn114">
+                  <button id="submitbtn" type="submit" class="btn btn-primary sub-btn114">
                     Save
                   </button>
               </div>
               </form>
           </div>
           <input type="hidden" id="custId" value="1">
-          <!-- Product List -->
-           <div class="col-md-6">
-              <div id="products">
-              </div>
-          </div>
       </div>
   </main>
 </body>
@@ -308,15 +303,16 @@ $("#adprincipal").on('click', function (e) {
 </script>
 <script>
   document.onkeyup = function(e) {
-   if (e.ctrlKey && e.which == 65) {
+   if (e.ctrlKey && e.shiftKey && e.which == 65) {
      document.getElementById("add").click();
-  } 
-    else if (e.ctrlKey && e.which == 66) {
+  }else if (e.ctrlKey && e.which == 66) {
     document.getElementById("back").click();
   }else if (e.ctrlKey && e.which == 78) {
     document.getElementById("adprincipal").click();
   }else if (e.ctrlKey && e.which == 82) {
     document.getElementById('remove'+ principalCreate).click();
+  }else if (e.ctrlKey && e.shiftKey && e.which == 83) {
+    document.getElementById("submitbtn").click();
   }
 };
    
@@ -375,10 +371,12 @@ function getVal()
   (async function ()
     {
       const productName = document.getElementById('provarients1').value;
+      console.log('4444444',productName);
       const getQrCodeData = main.getQrCodeDatas(productName).then(function (result) {
            const qr = result[0][0]['qr_code'];
            const text = qr; // text to convert
            const base64Str = textToBase64Barcode(text); 
+           console.log('555555',base64Str);
           })
 
       
