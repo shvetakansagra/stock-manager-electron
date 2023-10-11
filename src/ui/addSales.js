@@ -49,13 +49,14 @@ salesForm.addEventListener('submit', async(e) =>{
         const prod = [];
         
         for(let i = 1; i <= custId.value ; i++) {
-            var ddl_product_id = 'prod'+i;
+            console.log('444444444444');
+            // var ddl_product_id = 'prod'+i;
             var ddl_product_varient_id = 'provarients'+i;
             var qnt_id = 'qnt'+i;
             var price_id = 'price'+i;
             var total_id = 'totalamount'+i;
 
-            const ddl_product_value = document.getElementById(ddl_product_id).value;
+            // const ddl_product_value = document.getElementById(ddl_product_id).value;
             const ddl_product_varient_value = document.getElementById(ddl_product_varient_id).value;
             const qnt_value = document.getElementById(qnt_id).value;
             const price_value = document.getElementById(price_id).value;
@@ -63,7 +64,7 @@ salesForm.addEventListener('submit', async(e) =>{
             
             let myrecord = {
                 invoice_no:invoice_no.value,
-                product_id: ddl_product_value,
+                // product_id: ddl_product_value,
                 product_varients_id: ddl_product_varient_value,
                 quantity: qnt_value,
                 price: price_value,
