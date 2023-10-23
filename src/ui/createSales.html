@@ -111,7 +111,7 @@
                   </div>
                   <div class="form-group col-md-1 mt-2" style="width: 10%;">
                     <label>Unit</label>
-                      <input type="number" id="unit1" class="form-control" />
+                      <input type="text" id="unit1" class="form-control" />
                     </div>
                   <div class="form-group col-md-1 mt-2" style="width: 13%;">
                   <label>Price</label>
@@ -196,7 +196,7 @@ $("#adprincipal").on('click', function (e) {
                   <input type="number" id="qnt` + principalCreate + `" class="form-control" >
                 </div>
                 <div class="form-group col-md-1 mt-2" style="width: 10%;">
-                  <input type="number" id="unit` + principalCreate + `" class="form-control" >
+                  <input type="text" id="unit` + principalCreate + `" class="form-control" >
                 </div>
                 <div class="form-group col-md-2 mt-2" style="width: 13%;">
                   <input type="number" id="price` + principalCreate + `" class="form-control" >
@@ -224,13 +224,16 @@ $("#adprincipal").on('click', function (e) {
         if(result[0].length > 0){
           const val2 = result[0][0]['sales_price'];
           const name = result[0][0]['name'];
+          const unit = result[0][0]['unit'];
           document.getElementById('name' + principalCreate).value = name;
+          document.getElementById('unit' + principalCreate).value = unit;
           document.getElementById('price' + principalCreate).value= val2;
           
           document.getElementById('qnt' + principalCreate).value = 1;
                   const val1 = document.getElementById('qnt' + principalCreate).value;
                   document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
                   const grossamount = document.getElementById('grossamount' + principalCreate).value
+                  document.getElementById('gst' + principalCreate).value = 0;
                   const gst = document.getElementById('gst' + principalCreate).value;
                   const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
@@ -274,24 +277,31 @@ $("#adprincipal").on('click', function (e) {
         if(result[0].length > 0){
             const val2 = result[0][0]['sales_price'];
             const name = result[0][0]['name'];
+            const unit = result[0][0]['unit'];
             document.getElementById('name1').value = name;
             document.getElementById('qnt1').value = 1 ;
-            const val1 = document.getElementById('qnt1').value;
+            const qnt = document.getElementById('qnt1').value
+              document.getElementById('qnt1').value = qnt;
+              const val1 = document.getElementById('qnt1').value;
+            document.getElementById('unit1').value = unit;
+              // const val1 = document.getElementById('qnt1').value;
             document.getElementById('price1').value= val2;
             document.getElementById('grossamount1').value = (val1 * val2);
             const grossamount = document.getElementById('grossamount1').value
+            document.getElementById('gst1').value = 0 ;
             const gst = document.getElementById('gst1').value;
             const gstAmount = ((grossamount * gst) / 100);
-            // const totalamount = grossamount + gstAmount;
             num1 = parseInt(document.getElementById("grossamount1").value);
             num2 = parseInt(gstAmount);
             document.getElementById('totalamount1').value = num1 + num2;
+
+           
             TotalGross();
             document.getElementById("adprincipal").click(); 
             document.getElementById('provarients'+ principalCreate).focus();
             document.getElementById("provarients"+principalCreate).click(); 
-        }
-      })
+          }
+        })
 }  
 );
 

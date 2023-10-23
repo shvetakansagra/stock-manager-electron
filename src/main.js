@@ -113,7 +113,8 @@ const createSales = async (product) => {
   const getQrCodeDatas =async(productName)=>{
     const products=[];
     const conn = await getConnection();
-    const results = conn.query("SELECT name,sales_price from varient_products WHERE qr_code =" + conn.escape(productName));
+    const results = conn.query("SELECT name, sales_price, unit from varient_products WHERE qr_code =" + conn.escape(productName));
+    // const results = conn.query("SELECT name, sales_price, unit from view_varient_products WHERE qr_code =" + conn.escape(productName));
     data = await results.then((result) => {
       products.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {
