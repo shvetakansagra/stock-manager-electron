@@ -103,19 +103,19 @@
                   </div>
                   <div class="form-group col-md-2 mt-2" style="width: 13%;">
                     <label>Item Name</label>
-                      <input type="text" id="name1" class="form-control" onblur="getVal()"/>
+                      <input type="text" id="name1" class="form-control" />
                     </div>
                   <div class="form-group col-md-2 mt-2" style="width: 11%;">
                   <label>Quantity</label>
-                    <input type="number" id="qnt1" class="form-control" onblur="getVal()"/>
+                    <input type="number" id="qnt1" class="form-control" />
                   </div>
                   <div class="form-group col-md-1 mt-2" style="width: 10%;">
                     <label>Unit</label>
-                      <input type="number" id="unit1" class="form-control" onblur="getVal()"/>
+                      <input type="number" id="unit1" class="form-control" />
                     </div>
                   <div class="form-group col-md-1 mt-2" style="width: 13%;">
                   <label>Price</label>
-                    <input type="number" id="price1" class="form-control" onblur="getVal()"/>
+                    <input type="number" id="price1" class="form-control" />
                   </div>
                   
                   <div class="form-group col-md-2 mt-2" style="width: 13%;">
@@ -124,7 +124,7 @@
                   </div>
                   <div class="form-group col-md-2 mt-2" style="width: 8%;">
                     <label>GST %</label>
-                    <input type="number" id="gst1" class="form-control" onblur="getVal()"/>
+                    <input type="number" id="gst1" class="form-control" />
                   </div>
                   <div class="form-group col-md-2 mt-2" style="width: 14%;">
                     <label>Total Amount</label>
@@ -132,7 +132,6 @@
                   </div></br>
                 </div>
                 <div id="principal_append">
-                  
                 </div>
                 <div class="row justify-content-between">
                   <div class="form-group col-md-4 mt-4">
@@ -181,32 +180,33 @@
 */
 
 var principalCreate = 1;
+
 $("#adprincipal").on('click', function (e) {
     e.stopImmediatePropagation();
     ++principalCreate;
     $("#principal_append").append(`<div class="principal` + principalCreate + `">
         <div class="row">
               <div class="form-group col-md-2 mt-2" style="width: 11%;">
-                  <input type="number" id="provarients` + principalCreate + `" class="form-control" onblur="getVal()"/>
+                  <input type="number" id="provarients` + principalCreate + `" class="form-control"  autofocus/>
                 </div>
                 <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                  <input type="text" id="name` + principalCreate + `" class="form-control" onblur="getVal()"/>
+                  <input type="text" id="name` + principalCreate + `" class="form-control" />
                 </div>
                 <div class="form-group col-md-1 mt-2" style="width: 11%;">
-                  <input type="number" id="qnt` + principalCreate + `" class="form-control" onmouseout="getVal()">
+                  <input type="number" id="qnt` + principalCreate + `" class="form-control" >
                 </div>
                 <div class="form-group col-md-1 mt-2" style="width: 10%;">
-                  <input type="number" id="unit` + principalCreate + `" class="form-control" onblur="getVal()">
+                  <input type="number" id="unit` + principalCreate + `" class="form-control" >
                 </div>
                 <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                  <input type="number" id="price` + principalCreate + `" class="form-control" onblur="getVal()">
+                  <input type="number" id="price` + principalCreate + `" class="form-control" >
                 </div>
                 
                 <div class="form-group col-md-2 mt-2" style="width: 13%;">
                   <input type="number" id="grossamount` + principalCreate + `" class="form-control">
                 </div>
                 <div class="form-group col-md-1 mt-2" style="width: 8%;">
-                  <input type="number" id="gst` + principalCreate + `" class="form-control" onblur="getVal()">
+                  <input type="number" id="gst` + principalCreate + `" class="form-control" >
                 </div>
                 <div class="form-group col-md-2 mt-2" style="width: 14%;">
                   <input type="number" id="totalamount` + principalCreate + `" class="form-control">
@@ -218,29 +218,32 @@ $("#adprincipal").on('click', function (e) {
                             
      </div>`);
      $('#custId').val(principalCreate);
-    $("#provarients" + principalCreate).change(function(){ 
+    $("#provarients" + principalCreate).on( "keyup", async function() {
       let productName = $(this).val();
-       main.getQrCodeDatas(productName).then(function (result) {
-        const val2 = result[0][0]['sales_price'];
-        const name = result[0][0]['name'];
-        document.getElementById('name' + principalCreate).value = name;
-        document.getElementById('price' + principalCreate).value= val2;
-    
-
-      $('#qnt' + principalCreate).on('change', function () {
-                const val1 = document.getElementById('qnt' + principalCreate).value;
-                
-                document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
-                const grossamount = document.getElementById('grossamount' + principalCreate).value
-
-                const gst = document.getElementById('gst' + principalCreate).value;
-                const gstAmount = ((grossamount * gst) / 100);
-                num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
-                num2 = parseInt(gstAmount);
-                document.getElementById('totalamount' + principalCreate).value = num1 + num2;
-            });
-            getValForAppendProduct(principalCreate);
-          })
+      main.getQrCodeDatas(productName).then(function (result) {
+        if(result[0].length > 0){
+          const val2 = result[0][0]['sales_price'];
+          const name = result[0][0]['name'];
+          document.getElementById('name' + principalCreate).value = name;
+          document.getElementById('price' + principalCreate).value= val2;
+          
+          document.getElementById('qnt' + principalCreate).value = 1;
+                  const val1 = document.getElementById('qnt' + principalCreate).value;
+                  document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
+                  const grossamount = document.getElementById('grossamount' + principalCreate).value
+                  const gst = document.getElementById('gst' + principalCreate).value;
+                  const gstAmount = ((grossamount * gst) / 100);
+                  num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
+                  num2 = parseInt(gstAmount);
+                  document.getElementById('totalamount' + principalCreate).value = num1 + num2;
+                  TotalGross();
+            document.getElementById("adprincipal").click(); 
+            document.getElementById('provarients'+ principalCreate).focus();
+            document.getElementById("provarients"+ principalCreate).click(); 
+              // getValForAppendProduct(principalCreate);
+              
+          }
+        })
  });
 
   function readValueFromObject(items)
@@ -265,29 +268,29 @@ $("#adprincipal").on('click', function (e) {
 });
 </script>
 <script>
-
-
-
   $( "#provarients1" ).on( "keyup", async function() {
     const productName = document.getElementById('provarients1').value;
-  // console.log('3333333',productName);
    await main.getQrCodeDatas(productName).then(function (result) {
-        const val2 = result[0][0]['sales_price'];
-        const name = result[0][0]['name'];
-        document.getElementById('name1').value = name;
-         document.getElementById('qnt1').value = 1 ;
-        const val1 = document.getElementById('qnt1').value;
-        document.getElementById('price1').value= val2;
-        document.getElementById('grossamount1').value = (val1 * val2);
-        const grossamount = document.getElementById('grossamount1').value
-        const gst = document.getElementById('gst1').value;
-        const gstAmount = ((grossamount * gst) / 100);
-        // const totalamount = grossamount + gstAmount;
-        num1 = parseInt(document.getElementById("grossamount1").value);
-        num2 = parseInt(gstAmount);
-        document.getElementById('totalamount1').value = num1 + num2;
-        TotalGross();
-
+        if(result[0].length > 0){
+            const val2 = result[0][0]['sales_price'];
+            const name = result[0][0]['name'];
+            document.getElementById('name1').value = name;
+            document.getElementById('qnt1').value = 1 ;
+            const val1 = document.getElementById('qnt1').value;
+            document.getElementById('price1').value= val2;
+            document.getElementById('grossamount1').value = (val1 * val2);
+            const grossamount = document.getElementById('grossamount1').value
+            const gst = document.getElementById('gst1').value;
+            const gstAmount = ((grossamount * gst) / 100);
+            // const totalamount = grossamount + gstAmount;
+            num1 = parseInt(document.getElementById("grossamount1").value);
+            num2 = parseInt(gstAmount);
+            document.getElementById('totalamount1').value = num1 + num2;
+            TotalGross();
+            document.getElementById("adprincipal").click(); 
+            document.getElementById('provarients'+ principalCreate).focus();
+            document.getElementById("provarients"+principalCreate).click(); 
+        }
       })
 }  
 );
@@ -349,8 +352,7 @@ $("#adprincipal").on('click', function (e) {
               }
               $("#prod1").append(product_options);
         })
-        
-      }
+}
 </script>
 <script type="text/javascript">
     $("#prod1").change(function () {
@@ -372,67 +374,7 @@ $("#adprincipal").on('click', function (e) {
     });
 </script>
 
-<script>
-function getVal() 
-{
-  (async function ()
-    {
-      const productName = document.getElementById('provarients1').value;
-      // alert(productName);
-      await main.getQrCodeDatas(productName).then(function (result) {
-        const val2 = result[0][0]['sales_price'];
-        const name = result[0][0]['name'];
-        document.getElementById('name1').value = name;
-        const val1 = document.getElementById('qnt1').value;
-        document.getElementById('price1').value= val2;
-        document.getElementById('grossamount1').value = (val1 * val2);
-        const grossamount = document.getElementById('grossamount1').value
 
-        const gst = document.getElementById('gst1').value;
-        const gstAmount = ((grossamount * gst) / 100);
-        // const totalamount = grossamount + gstAmount;
-        num1 = parseInt(document.getElementById("grossamount1").value);
-        num2 = parseInt(gstAmount);
-        document.getElementById('totalamount1').value = num1 + num2;
-        TotalGross();
-      })
-    })
-    ();
-    function textToBase64Barcode(text){
-     var canvas = document.createElement("canvas");
-     JsBarcode(canvas, text, {format: "CODE39"});
-     return canvas.toDataURL("image/png");
-}
-}
-</script>
-<script>
-    function getValForAppendProduct(principalCreate) {
-        (async function () {
-          $('#provarients' + principalCreate).on('change', function () {
-            const productName = document.getElementById('provarients' + principalCreate).value;
-            // myresponse = undefined
-             main.getSalesPrice(productName).then(function (result) {
-                const salesPrice = result[0][0]['sales_price'];
-                myresponse = salesPrice;
-                document.getElementById("price" + principalCreate).value = salesPrice;
-            })
-         
-            $('#qnt' + principalCreate).on('change', function () {
-                const val1 = document.getElementById('qnt' + principalCreate).value;
-                const val2 = document.getElementById('price' + principalCreate).value;
-                document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
-                const grossamount = document.getElementById('grossamount' + principalCreate).value
-
-                const gst = document.getElementById('gst' + principalCreate).value;
-                const gstAmount = ((grossamount * gst) / 100);
-                num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
-                num2 = parseInt(gstAmount);
-                document.getElementById('totalamount' + principalCreate).value = num1 + num2;
-            });
-          });
-        })();
-    }
-</script>
 
 <script>
   //for sales date bydefualt selected
