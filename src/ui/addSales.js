@@ -49,7 +49,6 @@ salesForm.addEventListener('submit', async(e) =>{
         const prod = [];
         
         for(let i = 1; i <= custId.value ; i++) {
-            console.log('444444444444');
             // var ddl_product_id = 'prod'+i;
             var ddl_product_varient_id = 'provarients'+i;
             var qnt_id = 'qnt'+i;

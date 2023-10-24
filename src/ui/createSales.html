@@ -220,6 +220,7 @@ $("#adprincipal").on('click', function (e) {
      $('#custId').val(principalCreate);
     $("#provarients" + principalCreate).on( "keyup", async function() {
       let productName = $(this).val();
+      
       main.getQrCodeDatas(productName).then(function (result) {
         if(result[0].length > 0){
           const val2 = result[0][0]['sales_price'];
@@ -239,7 +240,8 @@ $("#adprincipal").on('click', function (e) {
                   num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
                   num2 = parseInt(gstAmount);
                   document.getElementById('totalamount' + principalCreate).value = num1 + num2;
-                  TotalGross();
+                    
+            TotalGross();
             document.getElementById("adprincipal").click(); 
             document.getElementById('provarients'+ principalCreate).focus();
             document.getElementById("provarients"+ principalCreate).click(); 
@@ -295,7 +297,21 @@ $("#adprincipal").on('click', function (e) {
             num2 = parseInt(gstAmount);
             document.getElementById('totalamount1').value = num1 + num2;
 
-           
+            $("#qnt1").change(function () {
+              const qnt = document.getElementById('qnt1').value
+              document.getElementById('qnt1').value = qnt;
+              const val1 = document.getElementById('qnt1').value;
+              document.getElementById('unit1').value = unit;
+              document.getElementById('price1').value= val2;
+              document.getElementById('grossamount1').value = (val1 * val2);
+            const grossamount = document.getElementById('grossamount1').value
+            document.getElementById('gst1').value = 0 ;
+            const gst = document.getElementById('gst1').value;
+            const gstAmount = ((grossamount * gst) / 100);
+            num1 = parseInt(document.getElementById("grossamount1").value);
+            num2 = parseInt(gstAmount);
+            document.getElementById('totalamount1').value = num1 + num2;
+            });
             TotalGross();
             document.getElementById("adprincipal").click(); 
             document.getElementById('provarients'+ principalCreate).focus();
