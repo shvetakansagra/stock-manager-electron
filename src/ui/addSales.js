@@ -10,14 +10,6 @@ const contact_no = document.querySelector("#contact_no");
 const invoice_no = document.querySelector("#invoice_no");
 const sales_date = document.querySelector("#sales_date");
 const order_no = document.querySelector("#order_no");
-// const prod = document.querySelector("#prod");
-// const provarients = document.querySelector("#provarients");
-// const qnt = document.querySelector("#qnt");
-// const price = document.querySelector("#price");
-// const prodesc = document.querySelector("#prodesc");
-// const grossamount = document.querySelector("#grossamount");
-// const gst = document.querySelector("#gst");
-// const totalamount = document.querySelector("#totalamount");
 const productsList = document.querySelector("#products");
 
 const custId = document.querySelector("#custId");
@@ -40,7 +32,6 @@ salesForm.addEventListener('submit', async(e) =>{
             order_no:order_no.value,
             total_amount:total_amount.value,
         }
-        
         const savedProduct = await main.createSales(product);
     
         const productItem ={
@@ -48,8 +39,7 @@ salesForm.addEventListener('submit', async(e) =>{
         }
         const prod = [];
         
-        for(let i = 1; i <= custId.value ; i++) {
-            // var ddl_product_id = 'prod'+i;
+        for(let i = 1; i <= (--custId.value) ; i++) {
             var ddl_product_varient_id = 'provarients'+i;
             var qnt_id = 'qnt'+i;
             var price_id = 'price'+i;
@@ -63,14 +53,12 @@ salesForm.addEventListener('submit', async(e) =>{
             
             let myrecord = {
                 invoice_no:invoice_no.value,
-                // product_id: ddl_product_value,
                 product_varients_id: ddl_product_varient_value,
                 quantity: qnt_value,
                 price: price_value,
                 total: total_value,
                 total: total_value,
             };
-            
                 const savedProductItem = await main.createProductSalesItem(myrecord);
             }
         console.log(prod);

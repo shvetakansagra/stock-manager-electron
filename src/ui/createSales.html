@@ -184,7 +184,6 @@ var principalCreate = 1;
 $("#adprincipal").on('click', function (e) {
   e.stopImmediatePropagation();
   ++principalCreate;
-  console.log('99999999999999',("principal` + principalCreate + `"));
     $("#principal_append").append(`<div class="principal` + principalCreate + `">
         <div class="row">
               <div class="form-group col-md-2 mt-2" style="width: 11%;">
@@ -220,21 +219,51 @@ $("#adprincipal").on('click', function (e) {
      </div>`);
      $('#custId').val(principalCreate);
      $('#val').val(principalCreate);
-    addPrincipal();
+    addDuplicateQuantity();
     
 });
-addPrincipal();
-function addPrincipal() {
+
+ addDuplicateQuantity(); 
+ TotalGross();
+function addDuplicateQuantity() {
   for (let index = 0; index < principalCreate; index++) {
     if (index !== (principalCreate-1)) {
-      // console.log('tastingsads',$('#provarients'+index).val() == $('#provarients'+(principalCreate-1)).val());
       if ($('#provarients'+index).val() == $('#provarients'+(principalCreate-1)).val()) {
-        let qnt_val = $('#qnt'+index).val();
-        $('#qnt'+index).val(++qnt_val);
+        
+        let qnt_val = $('#qnt' +index).val();
+        let total_quantity_val1= $('#qnt'+index).val(++qnt_val);
+        let gross = document.getElementById('price' + index).value
+        let duplicated_qnt = total_quantity_val1.val()
+        document.getElementById('grossamount' + index).value = ( duplicated_qnt *gross);
+        let grossamount =document.getElementById('grossamount' + index).value
+        document.getElementById('gst' + index).value = 0;
+                  const gst = document.getElementById('gst' + index).value;
+                  const gstAmount = ((grossamount * gst) / 100);
+                  num1 = parseInt(document.getElementById('grossamount' + index).value);
+                  num2 = parseInt(gstAmount);
+                  document.getElementById('totalamount' + index).value = num1 + num2;
+                  TotalGross();
+                  let princ = principalCreate-1;
+                  $('#provarients'+princ).val('');
+                  $('#name'+princ).val('');
+                  $('#qnt'+princ).val('');
+                  $('#unit'+princ).val('');
+                  $('#price'+princ).val('');
+                  $('#grossamount'+princ).val('');
+                  $('#gst'+princ).val('');
+                  $('#totalamount'+princ).val('');
+
+                  let principalCreates = principalCreate;
+                  $(".principal" + principalCreates).remove();
+                  if (principalCreate > 1) {
+                    principalCreate--;
+                  }
+        return;
       }
     }
   }
 $("#provarients" + principalCreate).on( "keyup", async function() {
+
       let productName = $(this).val();
       
       main.getQrCodeDatas(productName).then(function (result) {
@@ -257,23 +286,21 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
                   num2 = parseInt(gstAmount);
                   document.getElementById('totalamount' + principalCreate).value = num1 + num2;
                     
-            TotalGross();
+                 TotalGross();
             document.getElementById("adprincipal").click(); 
             document.getElementById('provarients'+ principalCreate).focus();
-            document.getElementById("provarients"+ principalCreate).click(); 
-              // getValForAppendProduct(principalCreate);
-              
+            document.getElementById("provarients"+ principalCreate).click();   
           }
         })
  });
  $(".remove").on('click', function () {
-        let principalCreates = $(this).val();
-        $(".principal" + principalCreates).remove();
-        if (principalCreate > 1) {
-            principalCreate--;
-        }
-    });
-  }
+   let principalCreates = $(this).val();
+   $(".principal" + principalCreates).remove();
+   if (principalCreate > 1) {
+     principalCreate--;
+    }
+  });
+}
 </script>
 
 
@@ -365,6 +392,15 @@ function TotalGross() {
         let totalGross = 0;
         let totalAmount = 0;
         let id = $('#custId').val();
+        if($('#provarients' + id).val()== ''||$('#provarients' + id).val()== undefined){
+          for (let index = 1; index <= --id; index++) {
+            totalGross += parseInt($('#grossamount' + index).val()) == undefined ? 0 : parseInt($('#grossamount' + index).val());
+            totalAmount += parseInt($('#totalamount' + index).val());
+            console.log($('#grossamount' + index).val(), $('#totalamount' + index).val());
+        }
+        $('#total_gross').val(totalGross);
+        $('#total_amount').val(totalAmount);
+        }else{
         for (let index = 1; index <= id; index++) {
             totalGross += parseInt($('#grossamount' + index).val()) == undefined ? 0 : parseInt($('#grossamount' + index).val());
             totalAmount += parseInt($('#totalamount' + index).val());
@@ -372,6 +408,7 @@ function TotalGross() {
         }
         $('#total_gross').val(totalGross);
         $('#total_amount').val(totalAmount);
-    }
+      }
+  }
 </script>
 </html>

@@ -9,10 +9,10 @@ const createSales = async (product) => {
       product.id = result.insertId;
    
       // Notify the User
-      new Notification({
-        title: "Electron Mysql",
-        body: "New Product Saved Successfully",
-      }).show();
+      // new Notification({
+      //   title: "Electron Mysql",
+      //   body: "New Product Saved Successfully",
+      // }).show();
    
       // Return the created Product
       return product
@@ -27,10 +27,10 @@ const createSales = async (product) => {
       product.id = result.insertId;
    
       // Notify the User
-      new Notification({
-        title: "Electron Mysql",
-        body: "New Product Saved Successfully",
-      }).show();
+      // new Notification({
+      //   title: "Electron Mysql",
+      //   body: "New Product Saved Successfully",
+      // }).show();
    
       // Return the created Product
       return product
