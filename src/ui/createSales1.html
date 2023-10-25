@@ -371,12 +371,10 @@ function getVal()
   (async function ()
     {
       const productName = document.getElementById('provarients1').value;
-      console.log('4444444',productName);
       const getQrCodeData = main.getQrCodeDatas(productName).then(function (result) {
            const qr = result[0][0]['qr_code'];
            const text = qr; // text to convert
            const base64Str = textToBase64Barcode(text); 
-           console.log('555555',base64Str);
           })
 
       
