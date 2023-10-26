@@ -122,65 +122,27 @@ const createSales = async (product) => {
     });
     return products;
   }
-
   async function init() {
     getProducts();
   }
-  
   init(); 
 
   //view sales 
-  async function viewSalesInvoiceDatas(id){
+  async function viewSalesInvoiceIdDatas(id){
+    const products=[];
     const conn = await getConnection();
-    const results = await conn.query("SELECT * FROM sales WHERE id = ?", id);
-    const salesDataEdit = JSON.parse(JSON.stringify(results));
-    const salesDataEditArray = salesDataEdit.flat();
-  
-  let ids = [];
-  let name = [];
-  let invoice_no = [];
-  let order_no = [];
-  let product = [];
-  let description = [];
-  let quantity = [];
-  let price = [];
-  let phone = [];
-  let address1 = [];
-  let gst = [];
-  let amount = [];
-  let total_amount = [];
-  
-    salesDataEditArray.forEach( (element) => {
-                ids.push(element.id);
-                name.push(element.customer_name);
-                invoice_no.push(element.invoice_no);
-                order_no.push(element.order_no);
-                product.push(element.product);
-                description.push(element.description);
-                quantity.push(element.quantity);
-                price.push(element.price);
-                phone.push(element.phone);
-                address1.push(element.address1);
-                gst.push(element.gst);
-                amount.push(element.amount);
-                total_amount.push(element.total_amount);
-            });
-    
-     localStorage.setItem("ids", ids);
-     localStorage.setItem("customer_name", name);
-     localStorage.setItem("invoice_no", invoice_no);
-     localStorage.setItem("order_no", order_no);
-     localStorage.setItem("product", product);
-     localStorage.setItem("description", description);
-     localStorage.setItem("quantity", quantity);
-     localStorage.setItem("price", price);
-     localStorage.setItem("phone", phone);
-     localStorage.setItem("address1", address1);
-     localStorage.setItem("gst", gst);
-     localStorage.setItem("amount", amount);
-     localStorage.setItem("total_amount", total_amount);
-
-     location.href='createSales.html';
+    const results1 = await conn.query("SELECT * FROM sales WHERE id = ?", id);
+    const inv =results1[0][0]['invoice_no'];
+    const results = await conn.query("SELECT * FROM sales_items WHERE invoice_no =" + conn.escape(inv));
+    console.log('333333333333333',results);
+    // const results = await conn.query("SELECT * FROM sales INNER JOIN sales_items ON where invoice_no = 'invoice_no'");
+    data = await results.then((result) => {
+           products.push(...JSON.parse(JSON.stringify(result)))
+           console.log('11111111111111',products);
+          }).catch((err) => {
+          console.log("err",err);
+          });
+    return products;
   }
 
   function createWindow() {
@@ -207,7 +169,7 @@ const createSales = async (product) => {
     getInvoiceId,
     getAllProducts,
     getAllProductVarients,
-    viewSalesInvoiceDatas,
+    viewSalesInvoiceIdDatas,
     getQrCodeDatas,
     getSalesPrice,
     createProductSalesItem,

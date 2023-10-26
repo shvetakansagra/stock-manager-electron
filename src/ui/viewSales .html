@@ -32,7 +32,7 @@
           <a id="back" type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
         </div>
         <form id="salesForm" class="card card-body">
-          <h2 class="text-center py-3">Sales Invoice</h2>
+          <h2 class="text-center py-3">Invoice</h2>
             <div class="row">
               <div class="form-group col-md-4 mt-2">
                 <label style="width: 136px;">Invoice No</label>
@@ -253,7 +253,9 @@ function setTotalAmountValue()
   }
    $('.total_gross_v').val(xmA)
  }
-addDuplicateQuantity(); 
+
+
+ addDuplicateQuantity(); 
 function addDuplicateQuantity() {
   for (let index = 0; index < principalCreate; index++) {
     if (index !== (principalCreate - 1)) {
@@ -294,7 +296,9 @@ function addDuplicateQuantity() {
     }
   }
 $("#provarients" + principalCreate).on( "keyup", async function() {
+
       let productName = $(this).val();
+      
       main.getQrCodeDatas(productName).then(function (result) {
         if(result[0].length > 0){
           const val2 = result[0][0]['sales_price'];
@@ -349,19 +353,21 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
     }
 </script>
 <script>
-      document.onkeyup = function(e) {
-      if (e.ctrlKey && e.shiftKey && e.which == 65) {
-        document.getElementById("add").click();
-      }else if (e.ctrlKey && e.which == 66) {
-        document.getElementById("back").click();
-      }else if (e.ctrlKey && e.which == 78) {
-        document.getElementById("adprincipal").click();
-      }else if (e.ctrlKey && e.which == 82) {
-        document.getElementById('remove'+ principalCreate).click();
-      }else if (e.ctrlKey && e.shiftKey && e.which == 83) {
-        document.getElementById("submitbtn").click();
-      }
+  document.onkeyup = function(e) {
+   if (e.ctrlKey && e.shiftKey && e.which == 65) {
+     document.getElementById("add").click();
+  }else if (e.ctrlKey && e.which == 66) {
+    document.getElementById("back").click();
+  }else if (e.ctrlKey && e.which == 78) {
+    document.getElementById("adprincipal").click();
+  }else if (e.ctrlKey && e.which == 82) {
+    document.getElementById('remove'+ principalCreate).click();
+  }else if (e.ctrlKey && e.shiftKey && e.which == 83) {
+    document.getElementById("submitbtn").click();
+  }
 };
+   
+
 </script>
 <script>
   const main = require('../main');
@@ -375,10 +381,70 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
           document.getElementById("invoice_no").value = id + 1 ;
 
         })
+        // for products listing
+        const products = main.getAllProducts().then(function(result){
+          $('#prod1').empty().append(new Option('Select all', 'all'));
+        const productName = result;
+        let product_options = "";
+        for (let i = 0; i <productName[0].length; i++) {
+                let id = productName[0][i]['id'];
+                let name = productName[0][i]['name'];
+                product_options += `<option value="${id}">${name}</option>`;
+              }
+              $("#prod1").append(product_options);
+        })
 }
 </script>
+<script type="text/javascript">
+    $("#prod1").change(function () {
+        let productName = $(this).val();
+        const salesProducts = main.getDropDownProductVarientsData(productName).then(function (result) {
+            const salesProduct = result;
+            const productId = salesProduct[0][0]['id'];
+
+            const salesProducts = main.getAllProductVarients(productId).then(function (result) {
+                const salesProduct = result;
+                $("#provarients1").empty().append(new Option('Select all', 'all'));
+                for (let i = 0; i < salesProduct[0].length; i++) {
+                    let id = salesProduct[0][i]['id'];
+                    let name = salesProduct[0][i]['name'];
+                    $("#provarients1").append(`<option value="${id}">${name}</option>`);
+                }
+            })
+        })
+    });
+</script>
+
+
+
 <script>
   //for sales date bydefualt selected
   document.getElementById('sales_date').valueAsDate = new Date();
 </script>
+<!-- <script type="text/javascript">
+function TotalGross() {
+        let totalGross = 0;
+        let totalAmount = 0;
+        let id = $('#custId').val();
+        console.log('init',id);
+        let provarient = $('#provarients' + id).val();
+        if(provarient == '' || provarient == undefined || provarient == null) {
+          console.log('first');
+          for (let index = 1; index <= --id; index++) {
+              totalGross += parseInt($('#grossamount' + index).val()) == undefined ? 0 : parseInt($('#grossamount' + index).val());
+              totalAmount += parseInt($('#totalamount' + index).val());
+            }
+            $('#total_gross').val(totalGross);
+            $('#total_amount').val(totalAmount);
+        } else{
+            console.log('second');
+            for (let index = 1; index <= id; index++) {
+                totalGross += parseInt($('#grossamount' + index).val()) == undefined ? 0 : parseInt($('#grossamount' + index).val());
+                totalAmount += parseInt($('#totalamount' + index).val());
+            }
+            $('#total_gross').val(totalGross);
+            $('#total_amount').val(totalAmount);
+      }
+  }
+</script> -->
 </html>
