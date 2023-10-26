@@ -129,8 +129,8 @@ const createSales = async (product) => {
   
   init(); 
 
-  //edit sales 
-  async function editSalesInvoiceDatas(id){
+  //view sales 
+  async function viewSalesInvoiceDatas(id){
     const conn = await getConnection();
     const results = await conn.query("SELECT * FROM sales WHERE id = ?", id);
     const salesDataEdit = JSON.parse(JSON.stringify(results));
@@ -207,6 +207,7 @@ const createSales = async (product) => {
     getInvoiceId,
     getAllProducts,
     getAllProductVarients,
+    viewSalesInvoiceDatas,
     getQrCodeDatas,
     getSalesPrice,
     createProductSalesItem,
