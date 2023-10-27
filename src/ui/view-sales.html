@@ -174,9 +174,11 @@
         </form>
     </div>
     <input type="hidden" id="custId" value="1">
-</body></div></body>var principalCreate = 1;<script>const salesDataList = window.localStorage.getItem("salesDataList");
+</body>
+var principalCreate = 1;
+<script>
+  const salesDataList = window.localStorage.getItem("salesDataList");
 const salesData = JSON.parse(salesDataList);
-console.log();
 $("#invoice_no").text(salesData[0][0]['invoice_no']);
 $("#sales_date").text(salesData[0][0]['sales_date'].split("T", 1));
 $("#order_no").text(salesData[0][0]['order_no']);
@@ -203,4 +205,6 @@ Object.keys(salesData).forEach(function (key) {
                     </tr>
      `);
 });
-window.localStorage.clear();</script></html>
+window.localStorage.clear();
+</script>
+</html>
