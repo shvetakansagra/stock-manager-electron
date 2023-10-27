@@ -26,7 +26,7 @@
 </body>
 <script type="module" src="./salesListing.js"></script> 
 <script>
-    document.onkeyup = function(e) {
+   document.onkeyup = function(e) {
    if (e.ctrlKey && e.shiftKey && e.which == 65) {
     document.getElementById("add").click();
    }else if (e.ctrlKey && e.which == 66) 
@@ -38,10 +38,8 @@
 </html>
 <script type="text/javascript">
 const main = require('../main');
-    async function viewSalesInvoice(id) {
-       const viewSalesInvoiceId = id;
-       await main.viewSalesInvoiceIdDatas(viewSalesInvoiceId);
+    async function viewSalesInvoice(InvoiceId) {
+       await main.viewSalesInvoiceIdDatas(InvoiceId);
+       window.location = 'view-sales.html';
 }
-
-
 </script>

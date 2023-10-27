@@ -128,21 +128,15 @@ const createSales = async (product) => {
   init(); 
 
   //view sales 
-  async function viewSalesInvoiceIdDatas(id){
-    const products=[];
+ const viewSalesInvoiceIdDatas= async(InvoiceId)=>{
+    const salesProducts=[];
     const conn = await getConnection();
-    const results1 = await conn.query("SELECT * FROM sales WHERE id = ?", id);
-    const inv =results1[0][0]['invoice_no'];
-    const results = await conn.query("SELECT * FROM sales_items WHERE invoice_no =" + conn.escape(inv));
-    console.log('333333333333333',results);
-    // const results = await conn.query("SELECT * FROM sales INNER JOIN sales_items ON where invoice_no = 'invoice_no'");
-    data = await results.then((result) => {
-           products.push(...JSON.parse(JSON.stringify(result)))
-           console.log('11111111111111',products);
-          }).catch((err) => {
-          console.log("err",err);
-          });
-    return products;
+    const results = await conn.query("SELECT sales.id,sales.customer_name,sales.sales_date,sales.order_no,sales.address,sales.total_amount,sales.total_gross,sales.country,sales.contact_no,sales.city,sales.state,sales.unit,sales_items.qr_code,sales_items.id,sales_items.invoice_no,sales_items.name,sales_items.quantity,sales_items.price,sales_items.total FROM sales_items INNER JOIN sales ON sales_items.invoice_no=sales.invoice_no WHERE sales.invoice_no ="+ conn.escape(InvoiceId));
+    const salesDataList = JSON.parse(JSON.stringify(results));
+    // const salesArray = salesDataList.flat();
+    // console.log('555555555555555555555',salesArray);
+    window.localStorage.setItem('salesDataList',JSON.stringify(salesDataList));
+    // exit();
   }
 
   function createWindow() {
