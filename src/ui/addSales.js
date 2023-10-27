@@ -31,8 +31,7 @@ salesForm.addEventListener('submit', async(e) =>{
             sales_date:sales_date.value,
             order_no:order_no.value,
             total_amount:total_amount.value,
-            total_gross:total_gross.value,
-            unit:unit.value,
+            total_gross:total_gross.value
         }
         const savedProduct = await main.createSales(product);
     
@@ -44,6 +43,7 @@ salesForm.addEventListener('submit', async(e) =>{
         for(let i = 1; i <= (--custId.value) ; i++) {
             var ddl_product_varient_id = 'provarients'+i;
             var ddl_product_name = 'name'+i;
+            var unit_id = 'unit'+i;
             var qnt_id = 'qnt'+i;
             var price_id = 'price'+i;
             var total_id = 'totalamount'+i;
@@ -52,6 +52,7 @@ salesForm.addEventListener('submit', async(e) =>{
             const ddl_product_varient_value = document.getElementById(ddl_product_varient_id).value;
             const ddl_product_value = document.getElementById(ddl_product_name).value;
             const qnt_value = document.getElementById(qnt_id).value;
+            const unit_value = document.getElementById(unit_id).value;
             const price_value = document.getElementById(price_id).value;
             const total_value = document.getElementById(total_id).value;
             
@@ -60,6 +61,7 @@ salesForm.addEventListener('submit', async(e) =>{
                 product_varients_id: ddl_product_varient_value,
                 qr_code: ddl_product_varient_value,
                 name: ddl_product_value,
+                unit: unit_value,
                 quantity: qnt_value,
                 price: price_value,
                 total: total_value,

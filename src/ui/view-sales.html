@@ -1,214 +1,206 @@
 <!DOCTYPE html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stock Manager Application</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <style>
-    body {
-  margin: 0;
-  padding: 0;
-}
- 
-#products {
-  height: 100vh;
-  overflow-y: auto;
-  padding: 2px
-}
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Manager Application</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+        p {
+            margin: 0;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .print {
+            text-align: center;
+            border-radius: 5px solid black;
+        }
+
+        .new-tr-66 table tr td label,
+        .new-tr-66 table tr td p {
+            display: inline-block !important;
+        }
+
+        .csc-custom-66{
+          display: flex;
+          gap: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-  <main class="container-flude">
-     
-    <div class="sales-invoice11 p-5">
-      <div class="text-end mb-3">
-          <a id="back" type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
+    <div class="container mt-5">
+        <div class="text-end mb-3">
+            <a id="back" type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
         </div>
         <form id="salesForm" class="card card-body">
-          <h2 class="text-center py-3">Invoice</h2>
+            <h2 class="text-center py-3">Invoice</h2>
+            <hr/>
             <div class="row">
-              <div class="form-group col-md-4 mt-2">
-                <label style="width: 136px;">Invoice No</label>
-                  <input type="number" id="invoice_no" class="form-control" autofocus/>
+                <div class="col-md-6">
+                    <h5>From:</h5>
+                    <p>Yiion
+                    </p>
+                    <p>T-308, Square One Complex,</p>
+                    <p>Radhanpur Road, Mehsana,</p>
+                    <p>Gujarat 384002</p>
                 </div>
-                <div class="form-group col-md-4 mt-2">
-                  <label style="width: 136px;">Sales Date</label>
-                  <input type="date" id="sales_date" class="form-control" />
-                  </div>
-                  <div class="form-group col-md-4 mt-2">
-                    <label style="width: 136px;">Order_no</label>
-                      <input type="text" id="order_no" class="form-control"/>
+                <div class="col-md-6">
+                    <h5>To:</h5>
+                    <p id="customer_name"></p>
+                    <p id="address"></p>
+                    <div class="csc-custom-66">
+                        <p id="country"></p>,
+                        <p id="state"></p>,
+                        <p id="city"></p>
                     </div>
-                  <div class="col-md-4">
-                      <div class="form-group mt-2">
-                          <label style="width: 200px;">Customer Name</label></br>
-                          <input type="text" id="customer_name" class="form-control"/>
-                        </div>
-                  </div> 
-                  <div class="form-group col-md-8 mt-2">
-                    <label style="width: 200px;">Address</label>
-                      <textarea id="address"  class="form-control" style="height: 38px;"></textarea>
-                    </div> 
-                  <div class="form-group col-md-4 mt-2">
-                    <label style="width: 200px;">Country</label>
-                    <input type="text" id="country" class="form-control" onchange="random_function()"/>
-                    </div>
-                    <div class="form-group col-md-4 mt-2">
-                      <label style="width: 200px;">state</label>
-                      <input type="text" id="state" class="form-control"/>
-                   </div>
-                   <div class="form-group col-md-4 mt-2">
-                    <label style="width: 200px;">city</label>
-                    <input type="text" id="city" class="form-control"/>
-                     </div>
-                     <div class="form-group col-md-4 mt-2">
-                      <label style="width: 200px;">Contact No</label>
-                        <input type="number" id="contact_no" class="form-control"/>
-                      </div>
-                      <div class="form-group col-md-4 mt-2">
-                          <label style="width: 136px;">GST No</label>
-                          <input type="text" id="gst_no" class="form-control"/>
-                       </div>
                 </div>
-                
-                <hr class="mt-4 pb-3">
-<!-- add new product -->
-                 <div class="row documents-section-custom">
-                  <div class="col-md-11">
-                      <h3 class="mb-3">Products</h3>
-                  </div>
-                  <!-- <div class="col-md-1 text-end">
-                      <button  type="button" id="adprincipal" class="btn btn-primary">New</button>
-                  </div> -->
-                </div>
-                 <div class="row">
-                  <div class="form-group col-md-2 mt-2" style="width: 11%;">
-                    <label>Item Code</label>
-                  </div>
-                  <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                    <label>Item Name</label>
-                    </div>
-                  <div class="form-group col-md-2 mt-2" style="width: 11%;">
-                  <label>Quantity</label>
-                  </div>
-                  <div class="form-group col-md-1 mt-2" style="width: 10%;">
-                    <label>Unit</label>
-                    </div>
-                  <div class="form-group col-md-1 mt-2" style="width: 13%;">
-                  <label>Price</label>
-                  </div>
-                  <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                    <label>Gross Amount</label>
-                  </div>
-                  <div class="form-group col-md-2 mt-2" style="width: 8%;">
-                    <label>GST %</label>
-                  </div>
-                  <div class="form-group col-md-2 mt-2" style="width: 14%;">
-                    <label>Total Amount</label>
-                  </div></br>
-                </div>
-                <div id="principal_append">
-                </div>
-                <div class="row justify-content-between">
-                  <div class="form-group col-md-4 mt-4">
-                      <label>Description</label>
-                        <textarea type="text" id="product_description" class="form-control" style="height: 95px;"></textarea>
-                      </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-6 new-tr-66">
+                    <table>
+                          <tr>
+                              <td>
+                                  <label><strong>Invoice No :</strong></label>
+                              </td>
+                              <td>
+                                  <p id="invoice_no"></p>
+                              </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                <label><strong>Date :</strong></label>
+                            </td>
+                            <td>
+                                <P id="sales_date"></P>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <label><strong>Order_no :</strong></label>
+                          </td>
+                          <td>
+                            <P id="order_no"></P>
+                          </td>
+                      </tr>
+                    </table>
                       
-                      <div class="col-md-3 mt-5">
-                          <div class="col-md-12 d-flex">
-                              <label style="width: 145px;">Total Gross</label>
-                                <input type="text" id="total_gross" class="form-control total_gross_v">
-                          </div>  
-                          <div class="col-md-12 mt-2 d-flex">
-                              <label style="width: 145px;">GST Amount</label>
-                                <input type="text" id="gst" class="form-control">
-                          </div>  
-                          <div class="col-md-12 mt-2 d-flex">
-                              <label style="width: 145px;">Other Charge</label>
-                                <input type="text" id="other_charge" class="form-control">
-                          </div>  
-                          <div class="col-md-12 mt-2 d-flex">
-                              <label style="width: 145px;">Total Amount</label>
-                                <input type="text" id="total_amount" class="form-control total_amount_v">
-                          </div>  
-                      </div>
                 </div>
-                
-                  <div class="text-center pt-4 pb-2">
-                  <button id="" type="submit" class="btn btn-primary sub-btn114">
-                    Print
-                  </button>
+
+                <div class="col-md-6">
+                  <table>
+                  <tr>
+                    <td>
+                      <label><strong>Contact No:</strong></label>
+                    </td>
+                    <td>
+                      <P id="contact_no"></P>
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label><strong>GST No :</strong></label>
+                  </td>
+                  <td>
+                    <P id="gst_no"></P>
+                  </td>
+                  </tr>
+                </table>
+                </div>
               </div>
-              </form>
-          </div>
-          <input type="hidden" id="custId" value="1">
-      </div>
-  </main>
-</body>
+            <hr class="mt-4 pb-3">
+            <table class="table">
+                <h3 class="mb-3">Products</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Gross Amount</th>
+                        <th scope="col">GST%</th>
+                        <th scope="col">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody"></tbody>
+            </table>
+            <div id="principal_append"></div>
+            <div class="row justify-content-between">
+                <div class="form-group col-md-4 mt-4">
+                    <label>Description :</label>
+                    <p id="product_description"></p>
+                </div>
+                <div class="col-md-3 mt-5">
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">Total Gross :</label>
+                        <p id="total_gross"></p>
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">GST Amount :</label>
+                        <p id="gst"></p>
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">Other Charge :</label>
+                        <p id="other_charge"></p>
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">Total Amount :</label>
+                        <p id="total_amount"></p>
+                    </div>
+                </div>
+            </div>
 
-var principalCreate = 1;
+            <div class="text-center pt-4 pb-2">
+                <button id="" type="submit" class="btn btn-primary sub-btn114">
+                    Print
+                </button>
+            </div>
+        </form>
+    </div>
+    <input type="hidden" id="custId" value="1">
+</body></div></body>var principalCreate = 1;<script>const salesDataList = window.localStorage.getItem("salesDataList");
+const salesData = JSON.parse(salesDataList);
+console.log();
+$("#invoice_no").text(salesData[0][0]['invoice_no']);
+$("#sales_date").text(salesData[0][0]['sales_date'].split("T", 1));
+$("#order_no").text(salesData[0][0]['order_no']);
+$("#customer_name").text(salesData[0][0]['customer_name']);
+$("#address").text(salesData[0][0]['address']);
+$("#country").text(salesData[0][0]['country']);
+$("#state").text(salesData[0][0]['state']);
+$("#city").text(salesData[0][0]['city']);
+$("#contact_no").text(salesData[0][0]['contact_no']);
+$("#total_amount").text(salesData[0][0]['total_amount']);
+$("#total_gross").text(salesData[0][0]['total_gross']);
 
-<script>
-  const salesDataList  = window.localStorage.getItem("salesDataList");
-  const salesData = JSON.parse(salesDataList);
-  $("#invoice_no").val(salesData[0][0]['invoice_no']);
-  $("#sales_date").val(salesData[0][0]['sales_date'].split("T", 1));
-  $("#order_no").val(salesData[0][0]['order_no']);
-  $("#customer_name").val(salesData[0][0]['customer_name']);
-  $("#address").val(salesData[0][0]['address']);
-  $("#country").val(salesData[0][0]['country']);
-  $("#state").val(salesData[0][0]['state']);
-  $("#city").val(salesData[0][0]['city']);
-  $("#contact_no").val(salesData[0][0]['contact_no']);
-  $("#total_amount").val(salesData[0][0]['total_amount']);
-  $("#total_gross").val(salesData[0][0]['total_gross']);
-
-  Object.keys(salesData).forEach(function(key) {
-  console.log('key11111111111111111111', salesData[0][key]['id']);
-  $("#principal_append").append(`<div class="principal">
-        <div class="row">
-              <div class="form-group col-md-2 mt-2" style="width: 11%;">
-                  <input type="number" id="provarients" value="`+salesData[0][key]['qr_code']+`" class="form-control"  autofocus/>
-                </div>
-                <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                  <input type="text" id="name" value="`+salesData[0][key]['name']+`" class="form-control" />
-                </div>
-                <div class="form-group col-md-1 mt-2" style="width: 11%;">
-                  <input type="number" id="qnt" value="`+salesData[0][key]['quantity']+`" class="form-control" >
-                </div>
-                <div class="form-group col-md-1 mt-2" style="width: 10%;">
-                  <input type="text" id="unit" value="`+salesData[0][key]['unit']+`" class="form-control" >
-                </div>
-                <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                  <input type="number" id="price" value="`+salesData[0][key]['price']+`" class="form-control" >
-                </div>
-                
-                <div class="form-group col-md-2 mt-2" style="width: 13%;">
-                  <input type="number" id="grossamount" value="`+salesData[0][key]['total']+`" class="form-control total-gross">
-                </div>
-                <div class="form-group col-md-1 mt-2" style="width: 8%;">
-                  <input type="number" id="gst"  class="form-control" >
-                </div>
-                <div class="form-group col-md-2 mt-2" style="width: 14%;">
-                  <input type="number" id="totalamount" value="`+salesData[0][key]['total']+`" class="form-control total-amount">
-                </div>
-                <div class="col-md-1 mt-2" style="width: 6%;">
-                    <button id="remove" type="reset"  class="btn btn-danger float-right remove" value="" name="remove"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-        </div>
-                            
-     </div>
+Object.keys(salesData).forEach(function (key) {
+    $("#tablebody").append(`
+  <tr>
+                      <td>` + salesData[0][key]['qr_code'] + `</td>
+                      <td>` + salesData[0][key]['name'] + `</td>
+                      <td>` + salesData[0][key]['quantity'] + `</td>
+                      <td>` + salesData[0][key]['unit'] + `</td>
+                      <td>` + salesData[0][key]['price'] + `</td>
+                      <td>` + salesData[0][key]['total'] + `</td>
+                      <td>` + salesData[0][key]['gst'] + `</td>
+                      <td>` + salesData[0][key]['total'] + `</td>
+                    </tr>
      `);
-    });
-    window.localStorage.clear();
-  
-</script>
-</html>
+});
+window.localStorage.clear();</script></html>
