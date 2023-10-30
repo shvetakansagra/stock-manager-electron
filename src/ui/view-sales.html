@@ -172,11 +172,11 @@
     </div>
     <input type="hidden" id="custId" value="1">
 </body>
-var principalCreate = 1;
+<!-- var principalCreate = 1; -->
 <script>
   const salesDataList = window.localStorage.getItem("salesDataList");
-const salesData = JSON.parse(salesDataList);
-$("#invoice_no").text(salesData[0][0]['invoice_no']);
+  const salesData = JSON.parse(salesDataList);
+  $("#invoice_no").text(salesData[0][0]['invoice_no']);
 $("#sales_date").text(salesData[0][0]['sales_date'].split("T", 1));
 $("#order_no").text(salesData[0][0]['order_no']);
 $("#customer_name").text(salesData[0][0]['customer_name']);
@@ -188,7 +188,7 @@ $("#contact_no").text(salesData[0][0]['contact_no']);
 $("#total_amount").text(salesData[0][0]['total_amount']);
 $("#total_gross").text(salesData[0][0]['total_gross']);
 
-Object.keys(salesData).forEach(function (key) {
+Object.keys(salesData[0]).forEach(function (key) {
     $("#tablebody").append(`
   <tr>
                       <td>` + salesData[0][key]['qr_code'] + `</td>
@@ -202,7 +202,7 @@ Object.keys(salesData).forEach(function (key) {
                     </tr>
      `);
 });
-window.localStorage.clear();
+// window.localStorage.clear();
 </script>
 <script>
   document.onkeyup = function(e) {

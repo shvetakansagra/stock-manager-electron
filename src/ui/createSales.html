@@ -228,7 +228,6 @@ function setTotalAmountValue()
   let a = 0;
   let len = $(".total-amount").length;
   for (let index = 1; index <= principalCreate; index++) {
-    console.log("principalCreateprincipalCreate", principalCreate)
     let row_total_amount = parseInt($('#totalamount'+index).val());
     if(row_total_amount > 0){
       xmA = parseInt(xmA) + parseInt(row_total_amount);

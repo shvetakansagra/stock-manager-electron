@@ -4,7 +4,7 @@ const { getConnection } = require('./database');
 
 const createSales = async (product) => {
     try {
-      const conn = await getConnection();
+            const conn = await getConnection();
             const result = await conn.query("INSERT INTO sales SET ?", product);
       product.id = result.insertId;
    
@@ -15,7 +15,7 @@ const createSales = async (product) => {
   };
   const createProductSalesItem = async (product) => {
     try {
-      const conn = await getConnection();
+            const conn = await getConnection();
       const result = await conn.query("INSERT INTO sales_items SET ?", product);
       product.id = result.insertId;
    
@@ -106,7 +106,7 @@ const createSales = async (product) => {
     }).catch((err) => {
       console.log("err",err);
     });
-    return products;
+        return products;
   }
   async function init() {
     getProducts();
@@ -119,8 +119,6 @@ const createSales = async (product) => {
     const conn = await getConnection();
     const results = await conn.query("SELECT sales.id,sales.customer_name,sales.sales_date,sales.order_no,sales.address,sales.gst,sales.total_amount,sales.total_gross,sales.country,sales.contact_no,sales.city,sales.state,sales_items.unit,sales_items.qr_code,sales_items.id,sales_items.invoice_no,sales_items.name,sales_items.quantity,sales_items.price,sales_items.total FROM sales_items INNER JOIN sales ON sales_items.invoice_no=sales.invoice_no WHERE sales.invoice_no ="+ conn.escape(InvoiceId));
     const salesDataList = JSON.parse(JSON.stringify(results));
-    // const salesArray = salesDataList.flat();
-    // console.log('555555555555555555555',salesArray);
     window.localStorage.setItem('salesDataList',JSON.stringify(salesDataList));
     // exit();
   }

@@ -33,7 +33,7 @@ salesForm.addEventListener('submit', async(e) =>{
             total_amount:total_amount.value,
             total_gross:total_gross.value
         }
-        const savedProduct = await main.createSales(product);
+                const savedProduct = await main.createSales(product);
     
         const productItem ={
             custId:custId.value,
@@ -68,12 +68,10 @@ salesForm.addEventListener('submit', async(e) =>{
             };
                 const savedProductItem = await main.createProductSalesItem(myrecord);
             }
-        console.log(prod);
-          
+
           salesForm.reset()
           customer_name.focus()
           location.href='sales.html'
-
     }catch(error){
         console.log(error);
     }
