@@ -270,7 +270,6 @@ function addDuplicateQuantity() {
                   num1 = parseInt(document.getElementById('grossamount' + index).value);
                   num2 = parseInt(gstAmount);
                   document.getElementById('totalamount' + index).value = num1 + num2;
-                  // TotalGross();
                   let princ = principalCreate-1;
                   $('#provarients'+princ).val('');
                   $('#name'+princ).val('');
@@ -372,7 +371,6 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
           }
           const id = result[0][0]['invoice_no'];
           document.getElementById("invoice_no").value = id + 1 ;
-
         })
 }
 </script>

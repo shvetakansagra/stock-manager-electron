@@ -164,7 +164,7 @@
             </div>
 
             <div class="text-center pt-4 pb-2">
-                <button id="print" type="submit" class="btn btn-primary sub-btn114">
+                <button id="print" type="submit" onclick="window.print()" class="btn btn-primary sub-btn114">
                     Print
                 </button>
             </div>
@@ -172,7 +172,7 @@
     </div>
     <input type="hidden" id="custId" value="1">
 </body>
-<!-- var principalCreate = 1; -->
+var principalCreate = 1;
 <script>
   const salesDataList = window.localStorage.getItem("salesDataList");
   const salesData = JSON.parse(salesDataList);
@@ -204,12 +204,10 @@ Object.keys(salesData[0]).forEach(function (key) {
 });
 window.localStorage.clear();
 </script>
-<script>
-  document.onkeyup = function(e) {
+<script> document.onkeyup = function(e) {
     if (e.ctrlKey && e.which == 80) {
-      console.log('44444444444444');
         document.getElementById("print").click();
       }
-  }
+    }
 </script>
 </html>
