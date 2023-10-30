@@ -39,7 +39,7 @@ salesForm.addEventListener('submit', async(e) =>{
         //     custId:custId.value,
         // }
         const prod = [];
-        for(let i = 1; i <= (custId.value--) ; i++) {
+        for(let i = 1; i <= (custId.value--); i++) {
             var ddl_product_varient_id = 'provarients'+i;
             var ddl_product_name = 'name'+i;
             var unit_id = 'unit'+i;
