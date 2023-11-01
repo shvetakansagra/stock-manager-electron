@@ -129,7 +129,8 @@ const createSales = async (product) => {
                        height:600,
                        webPreferences: {
                        nodeIntegration: true,
-                       contextIsolation: false //required flag
+                       contextIsolation: false, //required flag
+                       icon: `${__dirname}/assets/icons/win/icon.ico`
                      }
                    })
      window.loadFile("src/ui/index.html");
