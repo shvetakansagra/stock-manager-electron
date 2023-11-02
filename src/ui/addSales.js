@@ -7,6 +7,7 @@ const country = document.querySelector("#country");
 const state = document.querySelector("#state");
 const city = document.querySelector("#city");
 const contact_no = document.querySelector("#contact_no");
+const payment_type = document.querySelector("#payment_type");
 const invoice_no = document.querySelector("#invoice_no");
 const sales_date = document.querySelector("#sales_date");
 const order_no = document.querySelector("#order_no");
@@ -23,6 +24,7 @@ salesForm.addEventListener('submit', async(e) =>{
         const product ={
             customer_name:customer_name.value,
             address:address.value,
+            payment_type:payment_type.value,
             country:country.value,
             state:state.value,
             city:city.value,
@@ -39,7 +41,7 @@ salesForm.addEventListener('submit', async(e) =>{
         //     custId:custId.value,
         // }
         const prod = [];
-        for(let i = 1; i <= (custId.value--); i++) {
+        for(let i = 1; i <= (--custId.value); i++) {
             var ddl_product_varient_id = 'provarients'+i;
             var ddl_product_name = 'name'+i;
             var unit_id = 'unit'+i;
