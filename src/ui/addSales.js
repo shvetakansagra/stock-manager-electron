@@ -37,9 +37,9 @@ salesForm.addEventListener('submit', async(e) =>{
         }
                 const savedProduct = await main.createSales(product);
     
-        // const productItem ={
-        //     custId:custId.value,
-        // }
+        const productItem ={
+            custId:custId.value,
+        }
         const prod = [];
         for(let i = 1; i <= (--custId.value); i++) {
             var ddl_product_varient_id = 'provarients'+i;
