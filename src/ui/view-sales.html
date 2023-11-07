@@ -184,20 +184,20 @@
 <script>
   const salesDataList = window.localStorage.getItem("salesDataList");
   const salesData = JSON.parse(salesDataList);
-    $("#invoice_no").text(salesData[0][0]['invoice_no']);
-$("#sales_date").text(salesData[0][0]['sales_date'].split("T", 1));
-$("#order_no").text(salesData[0][0]['order_no']);
-$("#customer_name").text(salesData[0][0]['customer_name']);
-$("#address").text(salesData[0][0]['address']);
-$("#payment_type").text(salesData[0][0]['payment_type']);
-$("#country").text(salesData[0][0]['country']);
-$("#state").text(salesData[0][0]['state']);
-$("#city").text(salesData[0][0]['city']);
-$("#contact_no").text(salesData[0][0]['contact_no']);
-$("#total_amount").text(salesData[0][0]['total_amount']);
-$("#total_gross").text(salesData[0][0]['total_gross']);
-
-Object.keys(salesData[0]).forEach(function (key) {
+  $("#invoice_no").text(salesData[0][0]['invoice_no']);
+  $("#sales_date").text(salesData[0][0]['sales_date'].split("T", 1));
+  $("#order_no").text(salesData[0][0]['order_no']);
+  $("#customer_name").text(salesData[0][0]['customer_name']);
+  $("#address").text(salesData[0][0]['address']);
+  $("#payment_type").text(salesData[0][0]['payment_type']);
+  $("#country").text(salesData[0][0]['country']);
+  $("#state").text(salesData[0][0]['state']);
+  $("#city").text(salesData[0][0]['city']);
+  $("#contact_no").text(salesData[0][0]['contact_no']);
+  $("#total_amount").text(salesData[0][0]['total_amount']);
+  $("#total_gross").text(salesData[0][0]['total_gross']);
+  
+  Object.keys(salesData[0]).forEach(function (key) {
     $("#tablebody").append(`
   <tr>
                       <td>` + salesData[0][key]['qr_code'] + `</td>
@@ -210,7 +210,7 @@ Object.keys(salesData[0]).forEach(function (key) {
                       <td>` + salesData[0][key]['total'] + `</td>
                     </tr>
      `);
-});
+    });
 window.localStorage.clear();
 </script>
 <script> document.onkeyup = function(e) {

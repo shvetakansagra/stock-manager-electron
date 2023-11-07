@@ -38,10 +38,10 @@ salesForm.addEventListener('submit', async(e) =>{
                 const savedProduct = await main.createSales(product);
     
         const productItem ={
-            custId:custId.value,
+            custIds:custId.value,
         }
         const prod = [];
-        for(let i = 1; i <= (--custId.value); i++) {
+        for(let i = 1; i <= (custId.value); i++) {
             var ddl_product_varient_id = 'provarients'+i;
             var ddl_product_name = 'name'+i;
             var unit_id = 'unit'+i;
@@ -56,7 +56,7 @@ salesForm.addEventListener('submit', async(e) =>{
             const unit_value = document.getElementById(unit_id).value;
             const price_value = document.getElementById(price_id).value;
             const total_value = document.getElementById(total_id).value;
-            
+       if(qnt_value!=''||qnt_value!=0){
             let myrecord = {
                 invoice_no:invoice_no.value,
                 product_varients_id: ddl_product_varient_value,
@@ -67,9 +67,9 @@ salesForm.addEventListener('submit', async(e) =>{
                 price: price_value,
                 total: total_value,
             };
-                const savedProductItem = await main.createProductSalesItem(myrecord);
+            const savedProductItem = await main.createProductSalesItem(myrecord);
             }
-
+        }
           salesForm.reset()
           customer_name.focus()
           location.href='sales.html'
