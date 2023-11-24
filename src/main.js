@@ -112,7 +112,7 @@ const createSales = async (product) => {
     const conn = await getConnection();
     const results = await conn.query("SELECT sales.id,sales.customer_name,sales.sales_date,sales.order_no,sales.address,sales.gst,sales.total_amount,sales.total_gross,sales.country,sales.contact_no,sales.city,sales.state,sales.payment_type,sales_items.unit,sales_items.qr_code,sales_items.id,sales_items.invoice_no,sales_items.name,sales_items.quantity,sales_items.price,sales_items.total FROM sales_items INNER JOIN sales ON sales_items.invoice_no=sales.invoice_no WHERE sales.invoice_no ="+ conn.escape(InvoiceId));
     const salesDataList = JSON.parse(JSON.stringify(results));
-    window.localStorage.setItem('salesDataList',JSON.stringify(salesDataList));
+    window.localStorage.setItem('purchaseDataList',JSON.stringify(salesDataList));
     // exit();
   }
 
@@ -173,6 +173,14 @@ const createSales = async (product) => {
     });
     return companysAddress;
 }
+const viewPurchaseInvoiceIdDatas= async(InvoiceId)=>{
+  const salesProducts=[];
+  const conn = await getConnection();
+  const results = await conn.query("SELECT purchases.id,purchases.company_name,purchases.purchase_date,purchases.order_no,purchases.address,purchases.gst,purchases.total_amount,purchases.total_gross,purchases.phone,purchases.payment_type,purchase_items.unit,purchase_items.qr_code,purchase_items.id,purchase_items.invoice_no,purchase_items.name,purchase_items.quantity,purchase_items.price,purchase_items.total FROM purchase_items INNER JOIN purchases ON purchase_items.invoice_no=purchases.invoice_no WHERE purchases.invoice_no ="+ conn.escape(InvoiceId));
+  const purchaseDataList = JSON.parse(JSON.stringify(results));
+  window.localStorage.setItem('purchaseDataList',JSON.stringify(purchaseDataList));
+  // exit();
+}
 
   function createWindow() {
     window = new BrowserWindow({
@@ -204,5 +212,6 @@ const createSales = async (product) => {
     purchaseCompanyid,
     createPurchase,
     createProductPurchaseItem,
-    getPurchaseProducts
+    getPurchaseProducts,
+    viewPurchaseInvoiceIdDatas
   };   

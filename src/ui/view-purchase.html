@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Manager Application</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+        p {
+            margin: 0;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .print {
+            text-align: center;
+            border-radius: 5px solid black;
+        }
+
+        .new-tr-66 table tr td label,
+        .new-tr-66 table tr td p {
+            display: inline-block !important;
+        }
+
+        .csc-custom-66{
+          display: flex;
+          gap: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="text-end mb-3">
+            <a id="back" type="submit" class="btn btn-primary" onclick="location.href='purchase.html'">Back</a>
+        </div>
+        <form id="salesForm" class="card card-body">
+            <h2 class="text-center py-3">Invoice</h2>
+            <hr/>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>From:</h5>
+                    <p>Yiion</p>
+                    <p>T-308, Square One Complex,</p>
+                    <p>Radhanpur Road, Mehsana,</p>
+                    <p>Gujarat 384002</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>To:</h5>
+                    <p id="company_name"></p>
+                    <p id="address"></p>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-6 new-tr-66">
+                    <table>
+                          <tr>
+                              <td>
+                                  <label><strong>Invoice No :</strong></label>
+                              </td>
+                              <td>
+                                  <p id="invoice_no"></p>
+                              </td>
+                          </tr>
+                          <tr>
+                            <td>
+                                <label><strong>Date :</strong></label>
+                            </td>
+                            <td>
+                                <P id="purchase_date"></P>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <label><strong>Order_no :</strong></label>
+                          </td>
+                          <td>
+                            <P id="order_no"></P>
+                          </td>
+                      </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                  <table>
+                  <tr>
+                    <td>
+                      <label><strong>Contact No:</strong></label>
+                    </td>
+                    <td>
+                      <P id="contact_no"></P>
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label><strong>GST No :</strong></label>
+                  </td>
+                  <td>
+                    <P id="gst_no"></P>
+                  </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label><strong>Payment Type :</strong></label>
+                    </td>
+                    <td>
+                      <P id="payment_type"></P>
+                    </td>
+                    </tr>
+                </table>
+                </div>
+              </div>
+            <hr class="mt-4 pb-3">
+            <table class="table">
+                <h3 class="mb-3">Products</h3>
+                <thead>
+                    <tr>
+                        <th scope="col">Item Code</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Gross Amount</th>
+                        <th scope="col">GST%</th>
+                        <th scope="col">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody"></tbody>
+            </table>
+            <div id="principal_append"></div>
+            <div class="row justify-content-between">
+                <div class="form-group col-md-4 mt-4">
+                    <label>Description :</label>
+                    <p id="product_description"></p>
+                </div>
+                <div class="col-md-3 mt-5">
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">Total Gross :</label>
+                        <p id="total_gross"></p>
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">GST Amount :</label>
+                        <p id="gst"></p>
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">Other Charge :</label>
+                        <p id="other_charge"></p>
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex">
+                        <label style="width: 145px;">Total Amount :</label>
+                        <p id="total_amount"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-4 pb-2">
+                <button id="print" type="submit" onclick="window.print()" class="btn btn-primary sub-btn114">
+                    Print
+                </button>
+            </div>
+        </form>
+    </div>
+    <input type="hidden" id="custId" value="1">
+</body>
+<!-- var principalCreate = 1; -->
+<script>
+  const purchaseDataList = window.localStorage.getItem("purchaseDataList");
+  const purchaseData = JSON.parse(purchaseDataList);
+  $("#invoice_no").text(purchaseData[0][0]['invoice_no']);
+  $("#purchase_date").text(purchaseData[0][0]['purchase_date'].split("T", 1));
+  $("#order_no").text(purchaseData[0][0]['order_no']);
+  $("#company_name").text(purchaseData[0][0]['company_name']);
+  $("#address").text(purchaseData[0][0]['address']);
+  $("#payment_type").text(purchaseData[0][0]['payment_type']);
+  $("#contact_no").text(purchaseData[0][0]['phone']);
+  $("#total_amount").text(purchaseData[0][0]['total_amount']);
+  $("#total_gross").text(purchaseData[0][0]['total_gross']);
+  
+  Object.keys(purchaseData[0]).forEach(function (key) {
+    $("#tablebody").append(`
+  <tr>
+                      <td>` + purchaseData[0][key]['qr_code'] + `</td>
+                      <td>` + purchaseData[0][key]['name'] + `</td>
+                      <td>` + purchaseData[0][key]['quantity'] + `</td>
+                      <td>` + purchaseData[0][key]['unit'] + `</td>
+                      <td>` + purchaseData[0][key]['price'] + `</td>
+                      <td>` + purchaseData[0][key]['total'] + `</td>
+                      <td>` + purchaseData[0][key]['gst'] + `</td>
+                      <td>` + purchaseData[0][key]['total'] + `</td>
+                    </tr>
+     `);
+    });
+window.localStorage.clear();
+</script>
+<script> document.onkeyup = function(e) {
+    if (e.ctrlKey && e.which == 80) {
+        document.getElementById("print").click();
+      }
+    }
+</script>
+</html>

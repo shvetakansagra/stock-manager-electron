@@ -27,7 +27,7 @@ purchaseForm.addEventListener('submit', async(e) =>{
             total_amount:total_amount.value,
             total_gross:total_gross.value
         }
-         await main.createPurchase(product);
+                 await main.createPurchase(product);
     
         const productItem ={
             custIds:custId.value,

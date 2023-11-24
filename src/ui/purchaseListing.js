@@ -31,7 +31,7 @@ function renderProducts(tasks) {
           <td style="width:30px;">${t.phone}</td>
           <td style="width:75px;">${t.total_amount}</td>
           <td style="width:100px;">
-          <a class="btn btn-primary" title="View" onclick="viewSalesInvoice('${t.invoice_no}')">View</a></td>
+          <a class="btn btn-primary" title="View" onclick="viewPurchaseInvoice('${t.invoice_no}')">View</a></td>
       </tr>
       </tbody>
     </table>`;
@@ -41,7 +41,7 @@ function renderProducts(tasks) {
 
 const getPurchaseProducts = async()=>{
     purchaseProducts = await main.getPurchaseProducts();
-    await renderProducts(purchaseProducts)
+        await renderProducts(purchaseProducts)
 }
 
 async function init(){
