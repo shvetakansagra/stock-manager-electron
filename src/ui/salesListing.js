@@ -1,11 +1,5 @@
-
-
-
 const { format } = require('mysql2');
 const main = require('../main');
-// var dateFormat = require('dateformat');
-// const date_format = require('date_format')
-
 const productsList = document.querySelector("#products");
 let products = [];
 

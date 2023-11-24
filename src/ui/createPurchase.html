@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Manager Application</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+}
+ 
+#products {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2px
+}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body onload="idfind()">
+  <main class="container-flude">
+     
+    <div class="sales-invoice11 p-5">
+      <div class="text-end mb-3">
+          <a id="back" type="submit" class="btn btn-primary" onclick="location.href='purchase.html'">Back</a>
+        </div>
+        <form id="purchaseForm" class="card card-body">
+          <h2 class="text-center py-3">Purchase Invoice</h2>
+            <div class="row">
+              <div class="form-group col-md-4 mt-2">
+                <label style="width: 136px;">Invoice No</label>
+                  <input type="text" id="invoice_no" class="form-control" autofocus/>
+                </div>
+                <div class="form-group col-md-4 mt-2">
+                  <label style="width: 136px;">Purchase Date</label>
+                  <input type="date" id="purchase_date" class="form-control" />
+                  </div>
+                  <div class="form-group col-md-4 mt-2">
+                    <label style="width: 136px;">Order_no</label>
+                      <input type="text" id="order_no" class="form-control"/>
+                    </div>
+                  <div class="col-md-4">
+                      <div class="form-group mt-2">
+                          <label style="width: 200px;">Company Name</label></br>
+                          <select id="company_name" class="form-control">
+                          <option value="">Select Option</option>
+                        </select>
+                        </div>
+                  </div> 
+                  <div class="form-group col-md-8 mt-2">
+                    <label style="width: 200px;">Address</label>
+                    <input type="text" id="address" class="form-control"/>
+                    </div> 
+                     <div class="form-group col-md-4 mt-2">
+                      <label style="width: 200px;">Contact No</label>
+                        <input type="number" id="contact_no" class="form-control"/>
+                      </div>
+                      <div class="form-group col-md-4 mt-2">
+                          <label style="width: 136px;">GST No</label>
+                          <input type="text" id="gst_no" class="form-control"/>
+                       </div>
+                       <div class="form-group col-md-4 mt-2">
+                        <label style="width: 200px;">Payment Type</label>
+                        <select id="payment_type" class="form-control">
+                          <option value="">Select Option</option>
+                          <option value="Cash">Cash</option>
+                          <option value="Online ">Online </option>
+                          <option value="Pos">POS</option>
+                         </select>
+                     </div>
+                </div>
+                
+                <hr class="mt-4 pb-3">
+<!-- add new product -->
+                 <div class="row documents-section-custom">
+                  <div class="col-md-11">
+                      <h3 class="mb-3">Products</h3>
+                  </div>
+                  <div class="col-md-1 text-end">
+                      <button  type="button" id="adprincipal" class="btn btn-primary">New</button>
+                  </div>
+                </div>
+                 <div class="row">
+                  <div class="form-group col-md-2 mt-2" style="width: 11%;">
+                    <label>Item Code</label>
+                      <input type="number" id="provarients1" class="form-control"/>
+                  </div>
+                  <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                    <label>Item Name</label>
+                      <input type="text" id="name1" class="form-control" />
+                    </div>
+                  <div class="form-group col-md-2 mt-2" style="width: 11%;">
+                  <label>Quantity</label>
+                    <input type="number" id="qnt1" class="form-control" />
+                  </div>
+                  <div class="form-group col-md-1 mt-2" style="width: 10%;">
+                    <label>Unit</label>
+                      <input type="text" id="unit1" class="form-control" />
+                    </div>
+                  <div class="form-group col-md-1 mt-2" style="width: 13%;">
+                  <label>Price</label>
+                    <input type="number" id="price1" class="form-control" />
+                  </div>
+                  
+                  <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                    <label>Gross Amount</label>
+                    <input type="number" id="grossamount1" class="form-control total-gross"/>
+                  </div>
+                  <div class="form-group col-md-2 mt-2" style="width: 8%;">
+                    <label>GST %</label>
+                    <input type="number" id="gst1" class="form-control" />
+                  </div>
+                  <div class="form-group col-md-2 mt-2" style="width: 14%;">
+                    <label>Total Amount</label>
+                    <input type="number" id="totalamount1" class="form-control total-amount"/>
+                  </div></br>
+                </div>
+                <div id="principal_append">
+                </div>
+                <div class="row justify-content-between">
+                  <div class="form-group col-md-4 mt-4">
+                      <label>Description</label>
+                        <textarea type="text" id="product_description" class="form-control" style="height: 95px;"></textarea>
+                      </div>
+                      
+                      <div class="col-md-3 mt-5">
+                          <div class="col-md-12 d-flex">
+                              <label style="width: 145px;">Total Gross</label>
+                                <input type="text" id="total_gross" class="form-control total_gross_v">
+                          </div>  
+                          <div class="col-md-12 mt-2 d-flex">
+                              <label style="width: 145px;">GST Amount</label>
+                                <input type="text" id="gst" class="form-control">
+                          </div>  
+                          <div class="col-md-12 mt-2 d-flex">
+                              <label style="width: 145px;">Other Charge</label>
+                                <input type="text" id="other_charge" class="form-control">
+                          </div>  
+                          <div class="col-md-12 mt-2 d-flex">
+                              <label style="width: 145px;">Total Amount</label>
+                                <input type="text" id="total_amount" class="form-control total_amount_v">
+                          </div>  
+                      </div>
+                </div>
+                
+                  <div class="text-center pt-4 pb-2">
+                  <button id="submitbtn" type="submit" class="btn btn-primary sub-btn114">
+                    Save
+                  </button>
+              </div>
+              </form>
+          </div>
+          <input type="hidden" id="custId" value="1">
+      </div>
+  </main>
+</body>
+ <script type="module" src="./addPurchase.js"></script>
+ <!-- <script>
+  JsBarcode("#barcode", "Hi world!");
+ </script> -->
+ <script>
+  /*
+   Append + Principal detalis Principle......
+*/
+var principalCreate = 1;
+
+$("#adprincipal").on('click', function (e) {
+  e.stopImmediatePropagation();
+  ++principalCreate;
+    $("#principal_append").append(`<div class="principal` + principalCreate + `">
+        <div class="row">
+              <div class="form-group col-md-2 mt-2" style="width: 11%;">
+                  <input type="number" id="provarients` + principalCreate + `" class="form-control"  autofocus/>
+                </div>
+                <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                  <input type="text" id="name` + principalCreate + `" class="form-control" />
+                </div>
+                <div class="form-group col-md-1 mt-2" style="width: 11%;">
+                  <input type="number" id="qnt` + principalCreate + `" class="form-control" >
+                </div>
+                <div class="form-group col-md-1 mt-2" style="width: 10%;">
+                  <input type="text" id="unit` + principalCreate + `" class="form-control" >
+                </div>
+                <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                  <input type="number" id="price` + principalCreate + `" class="form-control" >
+                </div>
+                
+                <div class="form-group col-md-2 mt-2" style="width: 13%;">
+                  <input type="number" id="grossamount` + principalCreate + `" class="form-control total-gross">
+                </div>
+                <div class="form-group col-md-1 mt-2" style="width: 8%;">
+                  <input type="number" id="gst` + principalCreate + `" class="form-control" >
+                </div>
+                <div class="form-group col-md-2 mt-2" style="width: 14%;">
+                  <input type="number" id="totalamount` + principalCreate + `" class="form-control total-amount">
+                </div>
+                <div class="col-md-1 mt-2" style="width: 6%;">
+                    <button id="remove`+ principalCreate +`" type="reset"  class="btn btn-danger float-right remove" value="` + principalCreate + `" name="remove"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+        </div>
+                            
+     </div>`);
+     $('#custId').val(principalCreate);
+     $('#val').val(principalCreate);
+    addDuplicateQuantity();
+    
+});
+function setTotalAmountValue()
+ {
+  let xmA = 0;
+  let a = 0;
+  let len = $(".total-amount").length;
+  for (let index = 1; index <= principalCreate; index++) {
+    let row_total_amount = parseInt($('#totalamount'+index).val());
+    if(row_total_amount > 0){
+      xmA = parseInt(xmA) + parseInt(row_total_amount);
+    }
+    // const element = array[index];
+  }
+   $('.total_amount_v').val(xmA)
+ }
+
+ function setGrossAmountValue()
+ {
+  let xmA = 0;
+  let a = 0;
+  let len = $(".total-gross").length;
+  for (let index = 1; index <= principalCreate; index++) {
+    console.log("principalCreateprincipalCreate", principalCreate)
+    let row_total_amount = parseInt($('#grossamount'+index).val());
+    if(row_total_amount > 0){
+      xmA = parseInt(xmA) + parseInt(row_total_amount);
+    }
+    // const element = array[index];
+  }
+   $('.total_gross_v').val(xmA)
+ }
+addDuplicateQuantity(); 
+function addDuplicateQuantity() {
+  for (let index = 0; index < principalCreate; index++) {
+    if (index !== (principalCreate - 1)) {
+      if ($('#provarients'+index).val() == $('#provarients'+(principalCreate-1)).val()) {
+        
+        let qnt_val = $('#qnt' +index).val();
+        let total_quantity_val1= $('#qnt'+index).val(++qnt_val);
+        let gross = document.getElementById('price' + index).value
+        let duplicated_qnt = total_quantity_val1.val()
+        document.getElementById('grossamount' + index).value = ( duplicated_qnt *gross);
+        let grossamount =document.getElementById('grossamount' + index).value
+        document.getElementById('gst' + index).value = 0;
+                  const gst = document.getElementById('gst' + index).value;
+                  const gstAmount = ((grossamount * gst) / 100);
+                  num1 = parseInt(document.getElementById('grossamount' + index).value);
+                  num2 = parseInt(gstAmount);
+                  document.getElementById('totalamount' + index).value = num1 + num2;
+                  let princ = principalCreate-1;
+                  $('#provarients'+princ).val('');
+                  $('#name'+princ).val('');
+                  $('#qnt'+princ).val('');
+                  $('#unit'+princ).val('');
+                  $('#price'+princ).val('');
+                  $('#grossamount'+princ).val('');
+                  $('#gst'+princ).val('');
+                  $('#totalamount'+princ).val('');
+
+                  let principalCreates = principalCreate;
+                  $(".principal" + principalCreates).remove();
+                  if (principalCreate > 1) {
+                    principalCreate--;
+                  }
+                  setTotalAmountValue();
+                  setGrossAmountValue();
+                  return;
+      }
+    }
+  }
+$("#provarients" + principalCreate).on( "keyup", async function() {
+      let productName = $(this).val();
+      main.getQrCodeDatas(productName).then(function (result) {
+        if(result[0].length > 0){
+          const val2 = result[0][0]['purchase_price'];
+          const name = result[0][0]['name'];
+          const unit = result[0][0]['unit'];
+          document.getElementById('name' + principalCreate).value = name;
+          document.getElementById('unit' + principalCreate).value = unit;
+          document.getElementById('price' + principalCreate).value= val2;
+          
+          document.getElementById('qnt' + principalCreate).value = 1;
+                  const val1 = document.getElementById('qnt' + principalCreate).value;
+                  document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
+                  const grossamount = document.getElementById('grossamount' + principalCreate).value
+                  document.getElementById('gst' + principalCreate).value = 0;
+                  const gst = document.getElementById('gst' + principalCreate).value;
+                  const gstAmount = ((grossamount * gst) / 100);
+                  num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
+                  num2 = parseInt(gstAmount);
+                  document.getElementById('totalamount' + principalCreate).value = num1 + num2;
+                    
+                setTotalAmountValue();
+                setGrossAmountValue();
+            document.getElementById("adprincipal").click(); 
+            document.getElementById('provarients'+ principalCreate).focus();
+            document.getElementById("provarients"+ principalCreate).click();   
+          }
+        })
+ });
+ $(".remove").on('click', function () {
+   let principalCreates = $(this).val();
+   $(".principal" + principalCreates).remove();
+   if (principalCreate > 1) {
+     principalCreate--;
+    }
+  });
+}
+</script>
+<script>
+//purchase module
+  const main = require('../main');
+  function idfind(){
+    main.purchaseCompany().then(function (result) {
+      $("#company_name").empty().append(new Option('Select Companies'));
+      const purchaseCompanyData = result;
+      let company = "";
+      if(purchaseCompanyData[0].length > 0){
+          for (i = 0; i < purchaseCompanyData[0].length; i ++) {
+            let id = purchaseCompanyData[0][i]['id'];
+            let name = purchaseCompanyData[0][i]['name'];
+            company += `<option value="${id}">${name}</option>`;
+          }
+          $("#company_name").append(company);
+        }
+      });
+      $("#company_name").change(function () {
+        let purchaseCompanyData = $(this).val();
+        main.purchaseCompanyid(purchaseCompanyData).then(function (result) {
+          const purchaseCompanyAddressData = result[0][0]['address1'];
+          const purchaseCompanyName = result[0][0]['name'];
+          document.getElementById('address').value = purchaseCompanyAddressData;
+        });
+
+      })
+  }
+  document.getElementById('purchase_date').valueAsDate = new Date();
+    function random_function() {
+        var a = document.getElementById("country").value;
+        if (a === "INDIA") {
+            var arr = ["Gujarat", "Maharastra"];
+        }
+        var string = "";
+        for (i = 0; i < arr.length; i ++) {
+            string = string + "<option value=" + arr[i] + ">" + arr[i] + "</option>";
+        }
+        document.getElementById("state").innerHTML = string;
+    }
+    document.onkeyup = function(e) {
+      if (e.ctrlKey && e.shiftKey && e.which == 65) {
+        document.getElementById("add").click();
+      }else if (e.ctrlKey && e.which == 66) {
+        document.getElementById("back").click();
+      }else if (e.ctrlKey && e.which == 78) {
+        document.getElementById("adprincipal").click();
+      }else if (e.ctrlKey && e.which == 82) {
+        document.getElementById('remove'+ principalCreate).click();
+      }else if (e.ctrlKey && e.shiftKey && e.which == 83) {
+        document.getElementById("submitbtn").click();
+      }
+};
+</script>
+</html>

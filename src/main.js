@@ -1,7 +1,7 @@
 const { BrowserWindow } = require('electron');
 const { getConnection } = require('./database');
 
-
+//sales 
 const createSales = async (product) => {
     try {
             const conn = await getConnection();
@@ -99,7 +99,7 @@ const createSales = async (product) => {
   const getQrCodeDatas =async(productName)=>{
     const products=[];
     const conn = await getConnection();
-    const results = conn.query("SELECT name, sales_price, unit from varient_products WHERE qr_code =" + conn.escape(productName));
+    const results = conn.query("SELECT name, sales_price,purchase_price, unit from varient_products WHERE qr_code =" + conn.escape(productName));
     // const results = conn.query("SELECT name, sales_price, unit from view_varient_products WHERE qr_code =" + conn.escape(productName));
     data = await results.then((result) => {
       products.push(...JSON.parse(JSON.stringify(result)))
@@ -123,6 +123,51 @@ const createSales = async (product) => {
     // exit();
   }
 
+  //Purchase module
+  const createPurchase = async (product) => {
+    try {
+        const conn = await getConnection();
+        const result = await conn.query("INSERT INTO purchases SET ?", product);
+      product.id = result.insertId;
+   
+      return product
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const createProductPurchaseItem = async (product) => {
+    try {
+      const conn = await getConnection();
+      const result = await conn.query("INSERT INTO purchase_items SET ?", product);
+      product.id = result.insertId;
+      return product
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const purchaseCompany = async()=>{
+      const companys = [];
+      const conn = await getConnection();
+      const results = conn.query("SELECT * From companies ");
+      data = await results.then((result) => {
+        companys.push(...JSON.parse(JSON.stringify(result)))
+      }).catch((err) => {
+        console.log("err",err);
+      });
+      return companys;
+  }
+  const purchaseCompanyid = async(id)=>{
+    const companysAddress = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT address1 From companies WHERE id =" + conn.escape(id));
+    data = await results.then((result) => {
+      companysAddress.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return companysAddress;
+}
+
   function createWindow() {
     window = new BrowserWindow({
                        width:800,
@@ -137,10 +182,6 @@ const createSales = async (product) => {
    }
    const electron = require ('electron')
 
-// const app = electron.app // electron module
-// const BrowserWindow = electron.BrowserWindow //enables UI
-// const Menu = electron.Menu // menu module
-
    module.exports = {
     createWindow,
     createSales,
@@ -152,5 +193,9 @@ const createSales = async (product) => {
     getQrCodeDatas,
     getSalesPrice,
     createProductSalesItem,
-    getDropDownProductVarientsData
+    getDropDownProductVarientsData,
+    purchaseCompany,
+    purchaseCompanyid,
+    createPurchase,
+    createProductPurchaseItem
   };   
