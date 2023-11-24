@@ -332,14 +332,14 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
           for (i = 0; i < purchaseCompanyData[0].length; i ++) {
             let id = purchaseCompanyData[0][i]['id'];
             let name = purchaseCompanyData[0][i]['name'];
-            company += `<option value="${id}">${name}</option>`;
+            company += `<option value="${name}">${name}</option>`;
           }
           $("#company_name").append(company);
         }
       });
       $("#company_name").change(function () {
         let purchaseCompanyData = $(this).val();
-        main.purchaseCompanyid(purchaseCompanyData).then(function (result) {
+                main.purchaseCompanyid(purchaseCompanyData).then(function (result) {
           const purchaseCompanyAddressData = result[0][0]['address1'];
           const purchaseCompanyName = result[0][0]['name'];
           document.getElementById('address').value = purchaseCompanyAddressData;

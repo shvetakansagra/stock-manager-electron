@@ -4,10 +4,9 @@ const { getConnection } = require('./database');
 //sales 
 const createSales = async (product) => {
     try {
-            const conn = await getConnection();
-            const result = await conn.query("INSERT INTO sales SET ?", product);
+     const conn = await getConnection();
+     const result = await conn.query("INSERT INTO sales SET ?", product);
       product.id = result.insertId;
-   
       return product
     } catch (error) {
       console.log(error);
@@ -15,17 +14,15 @@ const createSales = async (product) => {
   };
   const createProductSalesItem = async (product) => {
     try {
-            const conn = await getConnection();
+      const conn = await getConnection();
       const result = await conn.query("INSERT INTO sales_items SET ?", product);
       product.id = result.insertId;
-   
       return product
     } catch (error) {
       console.log(error);
     }
   };
   const getInvoiceId = async () => {
-
     const ids = [];
     const conn = await getConnection();
     const results = conn.query("SELECT invoice_no FROM sales ORDER BY id DESC LIMIT 1");
@@ -38,7 +35,6 @@ const createSales = async (product) => {
   }
   
  const getProducts = async () => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT * FROM sales ORDER BY id DESC");
@@ -50,7 +46,6 @@ const createSales = async (product) => {
     return products;
   };
   const getAllProducts = async () => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT id,name FROM products ORDER BY id DESC");
@@ -62,7 +57,6 @@ const createSales = async (product) => {
     return products;
   };
   const getDropDownProductVarientsData = async (productName) => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT id, name FROM products WHERE id =" + conn.escape(productName));
@@ -74,7 +68,6 @@ const createSales = async (product) => {
     return products;
   }
   const getAllProductVarients = async (productId) => {
-
     const products = [];
     const conn = await getConnection();
     const results = conn.query("SELECT id, name FROM varient_products WHERE product_id =" + conn.escape(productId));
@@ -124,6 +117,19 @@ const createSales = async (product) => {
   }
 
   //Purchase module
+  const getPurchaseProducts = async () => {
+
+    const perchaseProducts = [];
+    const conn = await getConnection();
+    const results = conn.query("SELECT * FROM purchases ORDER BY id DESC");
+    data = await results.then((result) => {
+      perchaseProducts.push(...JSON.parse(JSON.stringify(result)))
+    }).catch((err) => {
+      console.log("err",err);
+    });
+    return perchaseProducts;
+  };
+
   const createPurchase = async (product) => {
     try {
         const conn = await getConnection();
@@ -156,10 +162,10 @@ const createSales = async (product) => {
       });
       return companys;
   }
-  const purchaseCompanyid = async(id)=>{
+  const purchaseCompanyid = async(name)=>{
     const companysAddress = [];
     const conn = await getConnection();
-    const results = conn.query("SELECT address1 From companies WHERE id =" + conn.escape(id));
+    const results = conn.query("SELECT address1 From companies WHERE name =" + conn.escape(name));
     data = await results.then((result) => {
       companysAddress.push(...JSON.parse(JSON.stringify(result)))
     }).catch((err) => {
@@ -197,5 +203,6 @@ const createSales = async (product) => {
     purchaseCompany,
     purchaseCompanyid,
     createPurchase,
-    createProductPurchaseItem
+    createProductPurchaseItem,
+    getPurchaseProducts
   };   

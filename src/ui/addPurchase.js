@@ -12,8 +12,6 @@ const productsList = document.querySelector("#products");
 
 const custId = document.querySelector("#custId");
 
-
-
 purchaseForm.addEventListener('submit', async(e) =>{
     
     try{
@@ -22,7 +20,7 @@ purchaseForm.addEventListener('submit', async(e) =>{
             invoice_no:invoice_no.value,
             purchase_date:purchase_date.value,
             order_no:order_no.value,
-            company_id:company_name.value,
+            company_name:company_name.value,
             address:address.value,
             payment_type:payment_type.value,
             phone:contact_no.value,
@@ -64,8 +62,8 @@ purchaseForm.addEventListener('submit', async(e) =>{
             const savedProductItem = await main.createProductPurchaseItem(myrecord);
             }
         }
-        console.log(111);
         purchaseForm.reset()
+        company_name.focus()
         location.href='purchase.html'
     }catch(error){
         console.log(error);
