@@ -36,6 +36,9 @@
           display: flex;
           gap: 2px;
         }
+        .card{
+            border:none !important;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
@@ -43,7 +46,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="text-end mb-3">
             <a id="back" type="submit" class="btn btn-primary" onclick="location.href='sales.html'">Back</a>
         </div>
@@ -51,14 +54,14 @@
             <h2 class="text-center py-3">Invoice</h2>
             <hr/>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" style="width: 50%;">
                     <h5>From:</h5>
                     <p>Yiion</p>
                     <p>T-308, Square One Complex,</p>
                     <p>Radhanpur Road, Mehsana,</p>
                     <p>Gujarat 384002</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="width: 50%;">
                     <h5>To:</h5>
                     <p id="customer_name"></p>
                     <p id="address"></p>
@@ -71,7 +74,7 @@
             </div>
             <hr/>
             <div class="row">
-                <div class="col-md-6 new-tr-66">
+                <div class="col-md-6 new-tr-66" style="width: 50%;">
                     <table>
                           <tr>
                               <td>
@@ -99,7 +102,7 @@
                       </tr>
                     </table>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="width: 50%;">
                   <table>
                   <tr>
                     <td>
@@ -147,32 +150,31 @@
             </table>
             <div id="principal_append"></div>
             <div class="row justify-content-between">
-                <div class="form-group col-md-4 mt-4">
+                <div class="form-group col-md-4 mt-4" style="width: 70%;">
                     <label>Description :</label>
                     <p id="product_description"></p>
                 </div>
-                <div class="col-md-3 mt-5">
+                <div class="col-md-3 mt-5" style="width: 30%;">
                     <div class="col-md-12 mt-2 d-flex">
-                        <label style="width: 145px;">Total Gross :</label>
+                        <label style="width: 115px;">Total Gross :</label>
                         <p id="total_gross"></p>
                     </div>
                     <div class="col-md-12 mt-2 d-flex">
-                        <label style="width: 145px;">GST Amount :</label>
+                        <label style="width: 115px;">GST Amount :</label>
                         <p id="gst"></p>
                     </div>
                     <div class="col-md-12 mt-2 d-flex">
-                        <label style="width: 145px;">Other Charge :</label>
+                        <label style="width: 115px;">Other Charge :</label>
                         <p id="other_charge"></p>
                     </div>
                     <div class="col-md-12 mt-2 d-flex">
-                        <label style="width: 145px;">Total Amount :</label>
+                        <label style="width: 115px;">Total Amount :</label>
                         <p id="total_amount"></p>
                     </div>
                 </div>
             </div>
-
             <div class="text-center pt-4 pb-2">
-                <button id="print" type="submit" onclick="window.print()" class="btn btn-primary sub-btn114">
+                <button id="printpagebutton" type="submit" onclick="printpage()" class="btn btn-primary sub-btn114">
                     Print
                 </button>
             </div>
@@ -217,6 +219,19 @@ window.localStorage.clear();
     if (e.ctrlKey && e.which == 80) {
         document.getElementById("print").click();
       }
+    }
+    function printpage() {
+        //Get the print button and put it into a variable
+        var printButton = document.getElementById("printpagebutton");
+        var back = document.getElementById("back");
+        //Set the print button visibility to 'hidden' 
+        printButton.style.visibility = 'hidden';
+        //Set the print button visibility to 'hidden' 
+        back.style.visibility = 'hidden';
+        //Print the page content
+        window.print()
+        printButton.style.visibility = 'visible';
+        back.style.visibility = 'visible';
     }
 </script>
 </html>

@@ -31,7 +31,7 @@ function renderProducts(tasks) {
           <td style="width:30px;">${t.contact_no}</td>
           <td style="width:75px;">${t.total_amount}</td>
           <td style="width:100px;">
-          <a class="btn btn-primary" title="View" onclick="viewSalesInvoice('${t.invoice_no}')">View</a></td>
+          <a class="btn btn-primary" title="View" onclick="viewSalesInvoice('${t.invoice_no}')" page.papersize = { format: 'a4', orientation: 'portrait', border: '1cm' };>View</a></td>
       </tr>
       </tbody>
     </table>`;
