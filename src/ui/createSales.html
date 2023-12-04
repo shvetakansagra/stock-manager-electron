@@ -273,7 +273,17 @@ function addDuplicateQuantity() {
         let duplicated_qnt = total_quantity_val1.val()
         document.getElementById('grossamount' + index).value = ( duplicated_qnt *gross);
         let grossamount =document.getElementById('grossamount' + index).value
-        document.getElementById('gst' + index).value = 0;
+
+        main.getConfigrationFlag().then(function (result) {
+          const gsts = result[0][0]['gst'];
+          const flag = result[0][0]['value'];
+          if(flag == "true"){
+            document.getElementById('gst' + index).value = gsts;
+            }
+            else{
+            document.getElementById('gst' + index).value = 0;
+            }
+            });
                   const gst = document.getElementById('gst' + index).value;
                   const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + index).value);
@@ -302,8 +312,13 @@ function addDuplicateQuantity() {
   }
 $("#provarients" + principalCreate).on( "keyup", async function() {
       let productName = $(this).val();
+      let flag =""
       main.getQrCodeDatas(productName).then(function (result) {
         if(result[0].length > 0){
+          main.getConfigrationFlag().then(function (gstValue) {
+            const gsts = gstValue[0][0]['gst'];
+            const flag = gstValue[0][0]['value'];
+          
           const val2 = result[0][0]['sales_price'];
           const name = result[0][0]['name'];
           const unit = result[0][0]['unit'];
@@ -312,12 +327,18 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
           document.getElementById('price' + principalCreate).value= val2;
           
           document.getElementById('qnt' + principalCreate).value = 1;
-                  const val1 = document.getElementById('qnt' + principalCreate).value;
-                  document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
-                  const grossamount = document.getElementById('grossamount' + principalCreate).value
-                  document.getElementById('gst' + principalCreate).value = 0;
-                  const gst = document.getElementById('gst' + principalCreate).value;
-                  const gstAmount = ((grossamount * gst) / 100);
+          const val1 = document.getElementById('qnt' + principalCreate).value;
+          document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
+          const grossamount = document.getElementById('grossamount' + principalCreate).value
+          
+          if(flag == "true"){
+            document.getElementById('gst' + principalCreate).value = gsts;
+            }
+            else{
+            document.getElementById('gst' + principalCreate).value = 0;
+            }
+            const gst = document.getElementById('gst' + principalCreate).value;
+                                    const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
                   num2 = parseInt(gstAmount);
                   document.getElementById('totalamount' + principalCreate).value = num1 + num2;
@@ -327,8 +348,9 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
             document.getElementById("adprincipal").click(); 
             document.getElementById('provarients'+ principalCreate).focus();
             document.getElementById("provarients"+ principalCreate).click();   
+          });
           }
-        })
+        });
  });
  $(".remove").on('click', function () {
    let principalCreates = $(this).val();

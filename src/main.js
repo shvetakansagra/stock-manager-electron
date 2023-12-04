@@ -181,6 +181,17 @@ const viewPurchaseInvoiceIdDatas= async(InvoiceId)=>{
   window.localStorage.setItem('purchaseDataList',JSON.stringify(purchaseDataList));
   // exit();
 }
+const getConfigrationFlag = async () => {
+  const flag = [];
+  const conn = await getConnection();
+  const results = conn.query("SELECT value,gst FROM configration");
+  data = await results.then((result) => {
+    flag.push(...JSON.parse(JSON.stringify(result)))
+  }).catch((err) => {
+    console.log("err",err);
+  });
+  return flag;
+};
 
   function createWindow() {
     window = new BrowserWindow({
@@ -213,5 +224,6 @@ const viewPurchaseInvoiceIdDatas= async(InvoiceId)=>{
     createPurchase,
     createProductPurchaseItem,
     getPurchaseProducts,
-    viewPurchaseInvoiceIdDatas
+    viewPurchaseInvoiceIdDatas,
+    getConfigrationFlag
   };   

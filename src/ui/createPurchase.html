@@ -247,7 +247,14 @@ function addDuplicateQuantity() {
   for (let index = 0; index < principalCreate; index++) {
     if (index !== (principalCreate - 1)) {
       if ($('#provarients'+index).val() == $('#provarients'+(principalCreate-1)).val()) {
-        
+        const main = require('../main');
+        main.getConfigrationFlag().then(function (flag) {
+            if(flag[0].length > 0){
+              const key = flag[0][0]['key'];
+              const flag = flag[0][0]['value'];
+              console.log('88888888888888',flag);
+            }
+          });
         let qnt_val = $('#qnt' +index).val();
         let total_quantity_val1= $('#qnt'+index).val(++qnt_val);
         let gross = document.getElementById('price' + index).value
@@ -255,6 +262,7 @@ function addDuplicateQuantity() {
         document.getElementById('grossamount' + index).value = ( duplicated_qnt *gross);
         let grossamount =document.getElementById('grossamount' + index).value
         document.getElementById('gst' + index).value = 0;
+        console.log('111111111111',('gst' + index).value);
                   const gst = document.getElementById('gst' + index).value;
                   const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + index).value);
@@ -291,12 +299,14 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
           document.getElementById('name' + principalCreate).value = name;
           document.getElementById('unit' + principalCreate).value = unit;
           document.getElementById('price' + principalCreate).value= val2;
-          
           document.getElementById('qnt' + principalCreate).value = 1;
+
+          
                   const val1 = document.getElementById('qnt' + principalCreate).value;
                   document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
                   const grossamount = document.getElementById('grossamount' + principalCreate).value
                   document.getElementById('gst' + principalCreate).value = 0;
+                  console.log('22222222',('gst' + index).value);
                   const gst = document.getElementById('gst' + principalCreate).value;
                   const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
