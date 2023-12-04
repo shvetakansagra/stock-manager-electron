@@ -186,7 +186,7 @@
 <script>
   const salesDataList = window.localStorage.getItem("salesDataList");
   const salesData = JSON.parse(salesDataList);
-  $("#invoice_no").text(salesData[0][0]['invoice_no']);
+    $("#invoice_no").text(salesData[0][0]['invoice_no']);
   $("#sales_date").text(salesData[0][0]['sales_date'].split("T", 1));
   $("#order_no").text(salesData[0][0]['order_no']);
   $("#customer_name").text(salesData[0][0]['customer_name']);
@@ -207,7 +207,7 @@
                       <td>` + salesData[0][key]['quantity'] + `</td>
                       <td>` + salesData[0][key]['unit'] + `</td>
                       <td>` + salesData[0][key]['price'] + `</td>
-                      <td>` + salesData[0][key]['total'] + `</td>
+                      <td>` + salesData[0][key]['gross'] + `</td>
                       <td>` + salesData[0][key]['gst'] + `</td>
                       <td>` + salesData[0][key]['total'] + `</td>
                     </tr>

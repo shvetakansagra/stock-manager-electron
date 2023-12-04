@@ -48,6 +48,8 @@ salesForm.addEventListener('submit', async(e) =>{
             var qnt_id = 'qnt'+i;
             var price_id = 'price'+i;
             var total_id = 'totalamount'+i;
+            var gst_id = 'gst'+i;
+            var gross_id = 'grossamount'+i;
 
             // const ddl_product_value = document.getElementById(ddl_product_id).value;
             const ddl_product_varient_value = document.getElementById(ddl_product_varient_id).value;
@@ -56,6 +58,8 @@ salesForm.addEventListener('submit', async(e) =>{
             const unit_value = document.getElementById(unit_id).value;
             const price_value = document.getElementById(price_id).value;
             const total_value = document.getElementById(total_id).value;
+            const gst_value = document.getElementById(gst_id).value;
+            const gross_value = document.getElementById(gross_id).value;
        if(qnt_value!=''||qnt_value!=0){
             let myrecord = {
                 invoice_no:invoice_no.value,
@@ -65,6 +69,8 @@ salesForm.addEventListener('submit', async(e) =>{
                 unit: unit_value,
                 quantity: qnt_value,
                 price: price_value,
+                gross: gross_value,
+                gst: gst_value,
                 total: total_value,
             };
             const savedProductItem = await main.createProductSalesItem(myrecord);
