@@ -247,22 +247,22 @@ function addDuplicateQuantity() {
   for (let index = 0; index < principalCreate; index++) {
     if (index !== (principalCreate - 1)) {
       if ($('#provarients'+index).val() == $('#provarients'+(principalCreate-1)).val()) {
-        const main = require('../main');
-        main.getConfigrationFlag().then(function (flag) {
-            if(flag[0].length > 0){
-              const key = flag[0][0]['key'];
-              const flag = flag[0][0]['value'];
-              console.log('88888888888888',flag);
-            }
-          });
         let qnt_val = $('#qnt' +index).val();
         let total_quantity_val1= $('#qnt'+index).val(++qnt_val);
         let gross = document.getElementById('price' + index).value
         let duplicated_qnt = total_quantity_val1.val()
         document.getElementById('grossamount' + index).value = ( duplicated_qnt *gross);
         let grossamount =document.getElementById('grossamount' + index).value
-        document.getElementById('gst' + index).value = 0;
-        console.log('111111111111',('gst' + index).value);
+        main.getConfigrationFlag().then(function (gstvalue) {
+          const gsts = gstvalue[0][0]['gst'];
+          const flag = gstvalue[0][0]['value'];
+          if(flag == "true"){
+            document.getElementById('gst' + index).value = gsts;
+            }
+            else{
+            document.getElementById('gst' + index).value = 0;
+            }
+            });
                   const gst = document.getElementById('gst' + index).value;
                   const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + index).value);
@@ -291,8 +291,12 @@ function addDuplicateQuantity() {
   }
 $("#provarients" + principalCreate).on( "keyup", async function() {
       let productName = $(this).val();
+      let flag ='';
       main.getQrCodeDatas(productName).then(function (result) {
-        if(result[0].length > 0){
+        main.getConfigrationFlag().then(function (gstValue) {
+            const gsts = gstValue[0][0]['gst'];
+            const flag = gstValue[0][0]['value'];
+            if(result[0].length > 0){
           const val2 = result[0][0]['purchase_price'];
           const name = result[0][0]['name'];
           const unit = result[0][0]['unit'];
@@ -300,13 +304,17 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
           document.getElementById('unit' + principalCreate).value = unit;
           document.getElementById('price' + principalCreate).value= val2;
           document.getElementById('qnt' + principalCreate).value = 1;
-
           
                   const val1 = document.getElementById('qnt' + principalCreate).value;
                   document.getElementById('grossamount' + principalCreate).value = (val1 * val2);
                   const grossamount = document.getElementById('grossamount' + principalCreate).value
+                  if(flag == "true")
+                  {
+                  document.getElementById('gst' + principalCreate).value = gsts;
+                  }
+                  else{
                   document.getElementById('gst' + principalCreate).value = 0;
-                  console.log('22222222',('gst' + index).value);
+                  }
                   const gst = document.getElementById('gst' + principalCreate).value;
                   const gstAmount = ((grossamount * gst) / 100);
                   num1 = parseInt(document.getElementById('grossamount' + principalCreate).value);
@@ -319,7 +327,8 @@ $("#provarients" + principalCreate).on( "keyup", async function() {
             document.getElementById('provarients'+ principalCreate).focus();
             document.getElementById("provarients"+ principalCreate).click();   
           }
-        })
+        });
+    });
  });
  $(".remove").on('click', function () {
    let principalCreates = $(this).val();

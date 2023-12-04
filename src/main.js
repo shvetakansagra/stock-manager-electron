@@ -177,7 +177,7 @@ const createSales = async (product) => {
 const viewPurchaseInvoiceIdDatas= async(InvoiceId)=>{
   const salesProducts=[];
   const conn = await getConnection();
-  const results = await conn.query("SELECT purchases.id,purchases.company_name,purchases.purchase_date,purchases.order_no,purchases.address,purchases.gst,purchases.total_amount,purchases.total_gross,purchases.phone,purchases.payment_type,purchase_items.unit,purchase_items.qr_code,purchase_items.id,purchase_items.invoice_no,purchase_items.name,purchase_items.quantity,purchase_items.price,purchase_items.total FROM purchase_items INNER JOIN purchases ON purchase_items.invoice_no=purchases.invoice_no WHERE purchases.invoice_no ="+ conn.escape(InvoiceId));
+  const results = await conn.query("SELECT purchases.id,purchases.company_name,purchases.purchase_date,purchases.order_no,purchases.address,purchases.gst,purchases.total_amount,purchases.total_gross,purchases.phone,purchases.payment_type,purchase_items.unit,purchase_items.qr_code,purchase_items.id,purchase_items.invoice_no,purchase_items.name,purchase_items.quantity,purchase_items.price,purchase_items.gst,purchase_items.gross,purchase_items.total FROM purchase_items INNER JOIN purchases ON purchase_items.invoice_no=purchases.invoice_no WHERE purchases.invoice_no ="+ conn.escape(InvoiceId));
   const purchaseDataList = JSON.parse(JSON.stringify(results));
   window.localStorage.setItem('purchaseDataList',JSON.stringify(purchaseDataList));
   // exit();
