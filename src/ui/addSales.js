@@ -41,7 +41,8 @@ salesForm.addEventListener('submit', async(e) =>{
             custIds:custId.value,
         }
         const prod = [];
-        for(let i = 1; i <= (custId.value); i++) {
+    
+        for(let i = 1; i <= (custId.value--); i++) {
             var ddl_product_varient_id = 'provarients'+i;
             var ddl_product_name = 'name'+i;
             var unit_id = 'unit'+i;
@@ -60,7 +61,7 @@ salesForm.addEventListener('submit', async(e) =>{
             const total_value = document.getElementById(total_id).value;
             const gst_value = document.getElementById(gst_id).value;
             const gross_value = document.getElementById(gross_id).value;
-       if(qnt_value!=''||qnt_value!=0){
+       if(qnt_value!=''||qnt_value!=0||ddl_product_varient_value!=''||ddl_product_varient_value!=0){
             let myrecord = {
                 invoice_no:invoice_no.value,
                 product_varients_id: ddl_product_varient_value,
